@@ -6,26 +6,23 @@ function make_transform(defn) {
         return undefined;
     }
     
-    var resultobj = {};
-    
     defn = defn.replace(/[\x20\x0A\x0D\x09]*/g, "");   // replace all whitespace with nothing
     defn = defn.substring(1, defn.length - 1);         // remove start and end braces
-    defn = defn.split(',');
+    var pairs = defn.split(',');
+
+    var resultbody = "";
     
-    for (let pair of defn) {
+    for (let pair of pairs) {
         pair = pair.split(":", 2);
         let key = pair[0];
         let val = pair[1];
 
-        resultobj[key] = val;
-    }
+        val = val.replace("prev", "x['" + key + "']");
 
-    return function (x) {
-        console.log(resultobj);
-        for (var key in resultobj) {
-            x[key] = eval(resultobj[key].replace("prev", x[key]));
-        }
-        return x;
-    };
+        resultbody += "x['" + key + "'] = " + val + ";\n"
+    }
+    resultbody += "return x;"
+
+    return Function('x', resultbody);
 }
 
