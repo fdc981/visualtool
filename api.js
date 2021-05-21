@@ -1,5 +1,5 @@
 /**
- * Creates a transformation, using a JSON string.
+ * Creates a transformation, using a string containing an object initialiser.
  */
 function make_transform(defn) {
     if (typeof(defn) !== "string") {
@@ -17,7 +17,7 @@ function make_transform(defn) {
         let key = pair[0];
         let val = pair[1];
 
-        val = val.replace("prev", "x['" + key + "']");
+        val = val.replace(/prev/g, "x['" + key + "']");
 
         resultbody += "x['" + key + "'] = " + val + ";\n"
     }
@@ -26,3 +26,4 @@ function make_transform(defn) {
     return Function('x', resultbody);
 }
 
+module.exports = make_transform;
