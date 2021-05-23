@@ -1,5 +1,5 @@
 const addAnimationButton = {
     template: `
-        <button class=""></button>
+        <button class="btn btn-light btn-toolbar"></button>
     `
 };
