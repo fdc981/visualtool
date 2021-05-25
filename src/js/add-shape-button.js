@@ -1,5 +1,5 @@
 const addShapeButton = {
     template: `
-        <button class="btn btn-light btn-toolbar"></button>
+        <button class="btn btn-toolbar"></button>
     `
 };
