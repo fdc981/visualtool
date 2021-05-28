@@ -1,9 +1,27 @@
 const addShapeButton = {
     template: `
-        <button class="btn btn-toolbar align-items-center justify-content-center">
+        <button class="btn btn-toolbar" v-on:click="test">
             <span>
                 <slot></slot>
             </span>
         </button>
-    `
+    `,
+
+    data() {
+        return {
+            currID : 0
+        };
+    },
+
+    methods: {
+        test() {
+            this.$parent.shapeList.push({
+                id : this.currID,
+                name : "Unnamed " + this.currID,
+                style : "position: absolute; width: 50px; height: 50px; background-color: rgba(0,0,0,0.5);"
+            });
+
+            this.currID += 1;
+        }
+    }
 };

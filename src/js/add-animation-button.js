@@ -1,6 +1,6 @@
 const addAnimationButton = {
     template: `
-        <button class="btn btn-toolbar align-items-center justify-content-center">
+        <button class="btn btn-toolbar">
             <span>
                 <slot></slot>
             </span>

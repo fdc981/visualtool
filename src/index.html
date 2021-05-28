@@ -27,6 +27,10 @@
             </div>
         </div>
 
+        <div id="display">
+            <div v-for="shape in shapeList" :style="shape.style"></div>
+        </div>
+
         <context-menu></context-menu>
     </body>
 </html>
