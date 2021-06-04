@@ -28,7 +28,8 @@
         </div>
 
         <div id="display">
-            <div v-for="shape in shapeList" :style="shape.style"></div>
+            <div v-for="shape in shapeList" :style="shape.style"
+                 @mousedown.ctrl.exact = "followMouse"></div>
         </div>
 
         <context-menu></context-menu>
