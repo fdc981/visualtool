@@ -9,6 +9,7 @@
         <script src="js/add-animation-button.js" defer></script>
         <script src="js/delete-button.js" defer></script>
         <script src="js/context-menu.js" defer></script>
+        <script src="js/edit-area.js" defer></script>
         <script src="js/app.js" defer></script>
 
         <link rel="stylesheet" href="css/bootstrap.css">
@@ -28,8 +29,13 @@
         </div>
 
         <div id="display">
-            <div v-for="shape in shapeList" :style="shape.style"
-                 @mousedown.ctrl.exact = "followMouse"></div>
+            <template v-for="(shape, shapeIndex) in shapeList">
+                <div :style="shape.style"
+                     :index="shapeIndex"
+                     @mousedown.ctrl.exact = "followMouse"
+                     @mousedown.shift.exact = "editShape(shape)"></div>
+                <edit-area v-if="shape.currentlyEditing" :shape="shape"></edit-area>
+            </template>
         </div>
 
         <context-menu></context-menu>
