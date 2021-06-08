@@ -5,7 +5,8 @@ const editArea = {
 
     template: `
         <div style="position: absolute; left:50%; top:50%">
-            <input :value="shape.style" />
+            <div id="edit-region" class="bg-white font-monospace p-3" contentEditable="true"
+                 v-html="shape.style.replace(/;/g, ';<br>')"></div>
             <button @click="updateStyle">update</button>
             <button @click="stopEditing">finish editing</button>
         </div>
@@ -13,7 +14,7 @@ const editArea = {
 
     methods: {
         updateStyle() {
-            this.shape.style = this.$el.querySelector("input").value;
+            this.shape.style = this.$el.querySelector("#edit-region").textContent;
         },
 
         stopEditing() {
