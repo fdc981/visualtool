@@ -2,8 +2,13 @@ const app = {
     el: "body",
 
     data() {
+        let sl = JSON.parse(localStorage.getItem("shapeList"));
+
+        if (sl === null) 
+            sl = [];
+
         return {
-            shapeList : [],
+            shapeList : sl,
             following : false
         }
     },
@@ -48,6 +53,7 @@ const app = {
         "add-shape-button": addShapeButton,
         "add-animation-button": addAnimationButton,
         "delete-button": deleteButton,
+        "save-button": saveButton,
         "context-menu": contextMenu,
         "edit-area": editArea
     }
