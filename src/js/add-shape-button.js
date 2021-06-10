@@ -1,6 +1,6 @@
 const addShapeButton = {
     template: `
-        <button class="btn btn-toolbar" v-on:click="test">
+        <button id="add-shape" class="btn btn-toolbar" v-on:click="test">
             <span>
                 <slot></slot>
             </span>
