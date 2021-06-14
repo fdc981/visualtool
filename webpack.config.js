@@ -1,12 +1,18 @@
+"use strict"
 const { VueLoaderPlugin } = require('vue-loader')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
+function resolve (dir) {
+      return path.join(__dirname, '..', dir)
+}
 
 module.exports = {
   entry: {
     app: "./src/main.js"
   },
+  mode: "development",
   module: {
     rules: [
-      // ... other rules
       {
         test: /\.vue$/,
         loader: 'vue-loader'
@@ -14,7 +20,18 @@ module.exports = {
     ]
   },
   plugins: [
-    // make sure to include the plugin!
-    new VueLoaderPlugin()
-  ]
+    new VueLoaderPlugin(),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'index.html',
+      inject: true
+    }),
+  ],
+  resolve: {
+      extensions: ['.js', '.vue'],
+      alias: {
+          "vue$": "vue/dist/vue.esm.js",
+          "@": resolve('src'),
+      } 
+  }
 }
