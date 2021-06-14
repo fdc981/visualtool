@@ -1,6 +1,7 @@
 "use strict"
 const { VueLoaderPlugin } = require('vue-loader')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
 
 function resolve (dir) {
       return path.join(__dirname, '..', dir)
