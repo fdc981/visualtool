@@ -1,4 +1,36 @@
-const app = {
+<template>
+    <div id="app">
+    <div class="row row-col-auto position-absolute bottom-0 px-4 py-3 gx-3">
+        <div class="col">
+            <add-shape-button>add shape</add-shape-button>
+        </div>
+        <div class="col">
+            <add-animation-button>add anim</add-animation-button>
+        </div>
+        <div class="col">
+            <delete-button>delete</delete-button>
+        </div>
+        <div class="col">
+           <save-button>save</save-button>
+        </div>
+    </div>
+
+    <div id="display">
+        <template v-for="(shape, shapeIndex) in shapeList">
+            <div :style="shape.style"
+                 :index="shapeIndex"
+                 @mousedown.ctrl.exact = "followMouse"
+                 @mousedown.shift.exact = "editShape(shape)"></div>
+            <edit-area v-if="shape.currentlyEditing" :shape="shape"></edit-area>
+        </template>
+    </div>
+
+    <context-menu></context-menu>
+    </div>
+</template>
+
+<script>
+export default {
     el: "body",
 
     data() {
@@ -49,19 +81,13 @@ const app = {
         }
     },
 
-    components : {
+    /* components : { 
         "add-shape-button": addShapeButton,
         "add-animation-button": addAnimationButton,
         "delete-button": deleteButton,
         "save-button": saveButton,
         "context-menu": contextMenu,
         "edit-area": editArea
-    }
-};
-
-var appInstance = Vue.createApp(app);
-
-// // globals
-// appInstance.config.globalProperties.$shapeList = [];
-
-appInstance.mount("body");
+    } */
+}
+</script>
