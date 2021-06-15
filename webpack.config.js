@@ -11,6 +11,7 @@ module.exports = {
   entry: {
     app: "./src/main.js"
   },
+  devServer: { hot: true },
   mode: "development",
   module: {
     rules: [
