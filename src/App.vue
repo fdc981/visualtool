@@ -30,69 +30,81 @@
 </template>
 
 <script>
-import AddAnimationButton from "./components/AddAnimationButton"
-import AddShapeButton from "./components/AddShapeButton"
-import ContextMenu from "./components/ContextMenu"
-import DeleteButton from "./components/DeleteButton"
-import EditArea from "./components/EditArea"
-import SaveButton from "./components/SaveButton"
+ import AddAnimationButton from "./components/AddAnimationButton"
+ import AddShapeButton from "./components/AddShapeButton"
+ import ContextMenu from "./components/ContextMenu"
+ import DeleteButton from "./components/DeleteButton"
+ import EditArea from "./components/EditArea"
+ import SaveButton from "./components/SaveButton"
 
-export default {
-    data() {
-        let sl = JSON.parse(localStorage.getItem("shapeList"));
+ export default {
+     data() {
+         let sl = JSON.parse(localStorage.getItem("shapeList"));
 
-        if (sl === null)
-            sl = [];
+         if (sl === null)
+             sl = [];
 
-        return {
-            shapeList : sl,
-            following : false
-        }
-    },
+         return {
+             shapeList : sl,
+             following : false
+         }
+     },
 
-    methods : {
-        showShapeList() {
-            console.log(this.shapeList);
-        },
+     methods : {
+         showShapeList() {
+             console.log(this.shapeList);
+         },
 
-        followMouse(e) {
-            let target = e.target;
+         followMouse(e) {
+             let target = e.target;
 
-            let onMouseMove = (e) => {
-                target.style.left = e.clientX / window.innerWidth * 100 + "%";
-                target.style.top = e.clientY / window.innerHeight * 100 + "%";
-            };
+             let onMouseMove = (e) => {
+                 target.style.left = e.clientX / window.innerWidth * 100 + "%";
+                 target.style.top = e.clientY / window.innerHeight * 100 + "%";
+             };
 
-            document.addEventListener('mousemove', onMouseMove);
+             document.addEventListener('mousemove', onMouseMove);
 
-            document.addEventListener('mouseup', (e) => {
-                document.removeEventListener('mousemove', onMouseMove);
+             document.addEventListener('mouseup', (e) => {
+                 document.removeEventListener('mousemove', onMouseMove);
 
-                let index = target.attributes.index.value;
+                 let index = target.attributes.index.value;
 
-                this.shapeList[index].style = target.style.cssText;
-            }, { once: true });
-        },
+                 this.shapeList[index].style = target.style.cssText;
+             }, { once: true });
+         },
 
-        editShape(shape) {
-            shape.currentlyEditing = true;
-        },
+         editShape(shape) {
+             shape.currentlyEditing = true;
+         },
 
-        updatePos(e) {
-            this.following = false;
+         updatePos(e) {
+             this.following = false;
 
-            e.target.style.left = e.clientX / window.innerWidth + "%";
-            e.target.style.top = e.clientY / window.innerHeight + "%";
-        }
-},
+             e.target.style.left = e.clientX / window.innerWidth + "%";
+             e.target.style.top = e.clientY / window.innerHeight + "%";
+         }
+     },
 
-    components : {
-        AddAnimationButton,
-        AddShapeButton,
-        ContextMenu,
-        DeleteButton,
-        EditArea,
-        SaveButton
-    }
-}
+     components : {
+         AddAnimationButton,
+         AddShapeButton,
+         ContextMenu,
+         DeleteButton,
+         EditArea,
+         SaveButton
+     }
+ }
 </script>
+
+<style>
+ button.btn-toolbar {
+    width: 100px;
+    height: 100px;
+
+    border: 3px solid rgba(200, 200, 200, 0.5);
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+}
+</style>
