@@ -38,8 +38,6 @@ import EditArea from "./components/EditArea"
 import SaveButton from "./components/SaveButton"
 
 export default {
-    el: "body",
-
     data() {
         let sl = JSON.parse(localStorage.getItem("shapeList"));
 
