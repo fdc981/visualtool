@@ -2,16 +2,16 @@
     <div id="app">
         <div class="row row-col-auto position-absolute bottom-0 px-4 py-3 gx-3">
             <div class="col">
-                <add-shape-button>add shape</add-shape-button>
+                <AddShapeButton>add shape</AddShapeButton>
             </div>
             <div class="col">
-                <add-animation-button>add anim</add-animation-button>
+                <AddAnimationButton>add anim</AddAnimationButton>
             </div>
             <div class="col">
-                <delete-button>delete</delete-button>
+                <DeleteButton>delete</DeleteButton>
             </div>
             <div class="col">
-                <save-button>save</save-button>
+                <SaveButton>save</SaveButton>
             </div>
         </div>
 
@@ -21,22 +21,29 @@
                  :index="shapeIndex"
                  @mousedown.ctrl.exact = "followMouse"
                  @mousedown.shift.exact = "editShape(shape)"></div>
-                <edit-area v-if="shape.currentlyEditing" :shape="shape"></edit-area>
+                <EditArea v-if="shape.currentlyEditing" :shape="shape"></EditArea>
             </template>
         </div>
 
-        <context-menu></context-menu>
+        <ContextMenu></ContextMenu>
     </div>
 </template>
 
 <script>
+import AddAnimationButton from "./components/AddAnimationButton"
+import AddShapeButton from "./components/AddShapeButton"
+import ContextMenu from "./components/ContextMenu"
+import DeleteButton from "./components/DeleteButton"
+import EditArea from "./components/EditArea"
+import SaveButton from "./components/SaveButton"
+
 export default {
     el: "body",
 
     data() {
         let sl = JSON.parse(localStorage.getItem("shapeList"));
 
-        if (sl === null) 
+        if (sl === null)
             sl = [];
 
         return {
@@ -79,15 +86,15 @@ export default {
             e.target.style.left = e.clientX / window.innerWidth + "%";
             e.target.style.top = e.clientY / window.innerHeight + "%";
         }
-    },
+},
 
-    /* components : { 
-        "add-shape-button": addShapeButton,
-        "add-animation-button": addAnimationButton,
-        "delete-button": deleteButton,
-        "save-button": saveButton,
-        "context-menu": contextMenu,
-        "edit-area": editArea
-    } */
+    components : {
+        AddAnimationButton,
+        AddShapeButton,
+        ContextMenu,
+        DeleteButton,
+        EditArea,
+        SaveButton
+    }
 }
 </script>

@@ -1,18 +1,19 @@
-const editArea = {
+<template>
+    <div class="font-monospace" style="position: absolute; left:50%; top:50%" @mousedown.ctrl.exact="followMouse">
+        <div id="edit-region" class="bg-white p-3" contentEditable="true"
+             v-html="shape.style.replace(/;/g, ';<br>')"></div>
+        <div class="px-3">
+            <a href="#" @click="updateStyle">update</a>&nbsp;
+            <a href="#" @click="stopEditing">finish editing</a>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
     props: {
         shape: Object
     },
-
-    template: `
-        <div class="font-monospace" style="position: absolute; left:50%; top:50%" @mousedown.ctrl.exact="followMouse">
-            <div id="edit-region" class="bg-white p-3" contentEditable="true"
-                 v-html="shape.style.replace(/;/g, ';<br>')"></div>
-            <div class="px-3">
-                <a href="#" @click="updateStyle">update</a>&nbsp;
-                <a href="#" @click="stopEditing">finish editing</a>
-            </div>
-        </div>
-    `,
 
     methods: {
         updateStyle() {
@@ -39,4 +40,5 @@ const editArea = {
             this.shape.currentlyEditing = false;
         }
     }
-};
+}
+</script>

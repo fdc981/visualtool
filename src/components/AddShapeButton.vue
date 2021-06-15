@@ -1,12 +1,13 @@
-const addShapeButton = {
-    template: `
-        <button id="add-shape" class="btn btn-toolbar" v-on:click="test">
-            <span>
-                <slot></slot>
-            </span>
-        </button>
-    `,
+<template>
+    <button id="add-shape" class="btn btn-toolbar" v-on:click="test">
+        <span>
+            <slot></slot>
+        </span>
+    </button>
+</template>
 
+<script>
+export default {
     data() {
         return {
             currID : 0
@@ -25,4 +26,5 @@ const addShapeButton = {
             this.currID += 1;
         }
     }
-};
+}
+</script>

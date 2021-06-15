@@ -1,5 +1,3 @@
-const contextMenu = {
-    template: `
-        <div class=""></div>
-    `
-};
+<template>
+    <div class=""></div>
+</template>
