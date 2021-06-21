@@ -2,16 +2,16 @@
     <div id="app">
         <div class="row row-col-auto position-absolute bottom-0 px-4 py-3 gx-3">
             <div class="col">
-                <AddShapeButton>add shape</AddShapeButton>
+                <button class="btn btn-toolbar" @click="addShape">add shape</button>
             </div>
             <div class="col">
-                <AddAnimationButton>add anim</AddAnimationButton>
+                <button class="btn btn-toolbar">add anim</button>
             </div>
             <div class="col">
-                <DeleteButton>delete</DeleteButton>
+                <button class="btn btn-toolbar">delete</button>
             </div>
             <div class="col">
-                <SaveButton>save</SaveButton>
+                <button class="btn btn-toolbar" @click="saveShapeList">save</button>
             </div>
         </div>
 
@@ -30,21 +30,24 @@
 </template>
 
 <script>
- import AddAnimationButton from "./components/AddAnimationButton"
- import AddShapeButton from "./components/AddShapeButton"
  import ContextMenu from "./components/ContextMenu"
- import DeleteButton from "./components/DeleteButton"
  import EditArea from "./components/EditArea"
- import SaveButton from "./components/SaveButton"
 
  export default {
      data() {
-         let sl = JSON.parse(localStorage.getItem("shapeList"));
 
-         if (sl === null)
-             sl = [];
+         //////////////////////////////////////////////////
+         // this code should probably be in mounted()
+         let sl = [];
+         try {
+             sl = JSON.parse(localStorage.getItem("shapeList"));
+         }
+         catch {}
+         /////////////////////////////////////////////////
+
 
          return {
+             currID : 0,
              shapeList : sl,
              following : false
          }
@@ -74,8 +77,23 @@
              }, { once: true });
          },
 
+         addShape() {
+             this.shapeList.push({
+                 id : this.currID,
+                 name : "Unnamed " + this.currID,
+                 style : "position: absolute; width: 50px; height: 50px; background-color: rgba(0,0,0,0.5);",
+                 currentlyEditing : false
+             });
+
+             this.currID += 1;
+         },
+
          editShape(shape) {
              shape.currentlyEditing = true;
+         },
+
+         saveShapeList() {
+             localStorage.setItem("shapeList", JSON.stringify(this.shapeList));
          },
 
          updatePos(e) {
@@ -87,12 +105,8 @@
      },
 
      components : {
-         AddAnimationButton,
-         AddShapeButton,
          ContextMenu,
-         DeleteButton,
          EditArea,
-         SaveButton
      }
  }
 </script>
