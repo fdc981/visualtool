@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" v-on="{ contextmenu: openContextMenu }">
         <div class="row row-col-auto position-absolute bottom-0 px-4 py-3 gx-3">
             <div class="col">
                 <button class="btn btn-toolbar" @click="addShape">add shape</button>
@@ -15,9 +15,10 @@
             </div>
         </div>
 
-        <div id="display">
+        <div id="display" class="vh-100 vw-100">
             <template v-for="(shape, shapeIndex) in shapeList">
                 <div :style="shape.style"
+                 class="shape"
                  :index="shapeIndex"
                  @mousedown.ctrl.exact = "followMouse"
                  @mousedown.shift.exact = "editShape(shape)"></div>
@@ -25,7 +26,23 @@
             </template>
         </div>
 
-        <ContextMenu></ContextMenu>
+        <div id="context-menu" :class="{ 'position-absolute': true, 'd-none': contextMenuInvisible }">
+            <li v-if="contextMenuTarget.className === 'shape'">
+                <a href="#" @click="deleteShape">
+                    delete shape
+                </a>
+            </li>
+            <li v-if="contextMenuTarget.id === 'display'">
+                <a href="#" @click="addShape">
+                    add shape
+                </a>
+            </li>
+            <li v-if="contextMenuTarget.id === 'display'">
+                <a href="#" @click="saveShapeList">
+                    save workspace
+                </a>
+            </li>
+        </div>
     </div>
 </template>
 
@@ -48,6 +65,8 @@
 
          return {
              currID : 0,
+             contextMenuInvisible: true,
+             contextMenuTarget: "",
              shapeList : sl,
              following : false
          }
@@ -88,6 +107,9 @@
              this.currID += 1;
          },
 
+         deleteShape(ind) {
+         },
+
          editShape(shape) {
              shape.currentlyEditing = true;
          },
@@ -101,6 +123,30 @@
 
              e.target.style.left = e.clientX / window.innerWidth + "%";
              e.target.style.top = e.clientY / window.innerHeight + "%";
+         },
+
+         openContextMenu(e) {
+             e.preventDefault();
+
+             if (!this.contextMenuInvisible) {
+                 this.contextMenuInvisible = true;
+                 return;
+             }
+
+             this.contextMenuInvisible = false;
+             this.contextMenuTarget = e.target;
+
+             let menu = this.$el.querySelector("div#context-menu");
+             console.log(e.target);
+
+             menu.style.left = e.pageX + "px";
+             menu.style.top = e.pageY + "px";
+
+             // document.addEventListener('mousedown', () =>
+             //     document.addEventListener('mouseup', () => this.contextMenuVisible = false, {once : true}),
+             // {once : true});
+
+             return false;
          }
      },
 
