@@ -43,6 +43,16 @@
                     save workspace
                 </a>
             </li>
+            <li v-if="contextMenuTarget.className === 'btn btn-toolbar'">
+                <a class="dropdown-item">
+                    remove button
+                </a>
+            </li>
+            <li v-if="contextMenuTarget.className === 'btn btn-toolbar'">
+                <a class="dropdown-item">
+                    replace button
+                </a>
+            </li>
         </ul>
     </div>
 </template>
