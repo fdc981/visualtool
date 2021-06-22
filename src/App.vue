@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" v-on="{ contextmenu: openContextMenu }">
         <div class="row row-col-auto position-absolute bottom-0 px-4 py-3 gx-3">
             <div class="col">
                 <button class="btn btn-toolbar" @click="addShape">add shape</button>
@@ -15,9 +15,10 @@
             </div>
         </div>
 
-        <div id="display">
+        <div id="display" class="vh-100 vw-100">
             <template v-for="(shape, shapeIndex) in shapeList">
                 <div :style="shape.style"
+                 class="shape"
                  :index="shapeIndex"
                  @mousedown.ctrl.exact = "followMouse"
                  @mousedown.shift.exact = "editShape(shape)"></div>
@@ -25,7 +26,24 @@
             </template>
         </div>
 
-        <ContextMenu></ContextMenu>
+        <ul id="context-menu"
+            :class="{ 'position-absolute': true, 'dropdown-menu': true, 'show': contextMenuVisible }">
+            <li v-if="contextMenuTarget.className === 'shape'">
+                <a href="#" @click="deleteShape" class="dropdown-item">
+                    delete shape
+                </a>
+            </li>
+            <li v-if="contextMenuTarget.id === 'display'">
+                <a href="#" @click="addShape" class="dropdown-item">
+                    add shape
+                </a>
+            </li>
+            <li v-if="contextMenuTarget.id === 'display'">
+                <a href="#" @click="saveShapeList" class="dropdown-item">
+                    save workspace
+                </a>
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -48,6 +66,8 @@
 
          return {
              currID : 0,
+             contextMenuVisible: true,
+             contextMenuTarget: "",
              shapeList : sl,
              following : false
          }
@@ -88,6 +108,9 @@
              this.currID += 1;
          },
 
+         deleteShape(ind) {
+         },
+
          editShape(shape) {
              shape.currentlyEditing = true;
          },
@@ -101,6 +124,30 @@
 
              e.target.style.left = e.clientX / window.innerWidth + "%";
              e.target.style.top = e.clientY / window.innerHeight + "%";
+         },
+
+         openContextMenu(e) {
+             e.preventDefault();
+
+             if (this.contextMenuVisible || e.target.id === "context-menu") {
+                 this.contextMenuVisible = false;
+                 return;
+             }
+
+             this.contextMenuVisible = true;
+             this.contextMenuTarget = e.target;
+
+             let menu = this.$el.querySelector("#context-menu");
+             console.log(e.target);
+
+             menu.style.left = e.pageX + "px";
+             menu.style.top = e.pageY + "px";
+
+             // document.addEventListener('mousedown', () =>
+             //     document.addEventListener('mouseup', () => this.contextMenuVisible = false, {once : true}),
+             // {once : true});
+
+             return false;
          }
      },
 
