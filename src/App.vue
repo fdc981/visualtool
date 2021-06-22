@@ -1,5 +1,5 @@
 <template>
-    <div id="app" v-on="{ contextmenu: openContextMenu }">
+    <div id="app" v-on="{ contextmenu: openContextMenu, mousedown: closeContextMenu }">
         <div class="row row-col-auto position-absolute bottom-0 px-4 py-3 gx-3">
             <div class="col">
                 <button class="btn btn-toolbar" @click="addShape">add shape</button>
@@ -139,11 +139,6 @@
          openContextMenu(e) {
              e.preventDefault();
 
-             if (this.contextMenuVisible || e.target.id === "context-menu") {
-                 this.contextMenuVisible = false;
-                 return;
-             }
-
              this.contextMenuVisible = true;
              this.contextMenuTarget = e.target;
 
@@ -158,6 +153,13 @@
              // {once : true});
 
              return false;
+         },
+
+         closeContextMenu(e) {
+             if (this.contextMenuVisible && e.target.className !== "dropdown-item") {
+                 this.contextMenuVisible = false;
+                 return;
+             }
          }
      },
 
