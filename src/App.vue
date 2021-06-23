@@ -29,7 +29,9 @@
         <ul id="context-menu"
             :class="{ 'position-absolute': true, 'dropdown-menu': true, 'show': contextMenuVisible }">
             <li v-if="contextMenuTarget.className === 'shape'">
-                <a href="#" @click="deleteShape" class="dropdown-item">
+                <a href="#"
+                   @click="deleteShape(Number(contextMenuTarget.attributes.index.value))"
+                   class="dropdown-item">
                     delete shape
                 </a>
             </li>
@@ -119,6 +121,9 @@
          },
 
          deleteShape(ind) {
+             this.shapeList = this.shapeList.filter((element, index) => {
+                 return index !== ind;
+             });
          },
 
          editShape(shape) {
