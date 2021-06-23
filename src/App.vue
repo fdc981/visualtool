@@ -148,10 +148,6 @@
              menu.style.left = e.pageX + "px";
              menu.style.top = e.pageY + "px";
 
-             // document.addEventListener('mousedown', () =>
-             //     document.addEventListener('mouseup', () => this.contextMenuVisible = false, {once : true}),
-             // {once : true});
-
              return false;
          },
 
