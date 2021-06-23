@@ -148,7 +148,6 @@
              this.contextMenuTarget = e.target;
 
              let menu = this.$el.querySelector("#context-menu");
-             console.log(e.target);
 
              menu.style.left = e.pageX + "px";
              menu.style.top = e.pageY + "px";
