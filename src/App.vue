@@ -35,6 +35,13 @@
                     delete shape
                 </a>
             </li>
+            <li v-if="contextMenuTarget.className === 'shape'">
+                <a href="#"
+                   @click="copyShape(Number(contextMenuTarget.attributes.index.value))"
+                   class="dropdown-item">
+                    copy shape
+                </a>
+            </li>
             <li v-if="contextMenuTarget.id === 'display'">
                 <a href="#" @click="addShape" class="dropdown-item">
                     add shape
@@ -129,6 +136,16 @@
              this.shapeList = this.shapeList.filter((element, index) => {
                  return index !== ind;
              });
+         },
+
+         copyShape(ind) {
+             // Copies a shape, assigning it with currID
+             let newShape = JSON.parse(JSON.stringify(this.shapeList[ind]));
+             newShape.id = this.currID;
+
+             this.shapeList.push(newShape);
+
+             this.currID += 1;
          },
 
          editShape(shape) {
