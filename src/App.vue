@@ -72,12 +72,17 @@
          try {
              sl = JSON.parse(localStorage.getItem("shapeList"));
          }
-         catch {}
+         catch (e) {
+             console.error(e);
+         }
          /////////////////////////////////////////////////
 
+         const reducer = (acc, currVal) => {
+             return Math.max(isNaN(currVal) ? 0 : currVal, acc);
+         };
 
          return {
-             currID : 0,
+             currID : sl.map(x => Number(x.id)).reduce(reducer, 0) + 1,
              contextMenuVisible: true,
              contextMenuTarget: "",
              shapeList : sl,
