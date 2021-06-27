@@ -16,14 +16,16 @@
         </div>
 
         <div id="display" class="vh-100 vw-100">
-            <template v-for="(shape, shapeIndex) in shapeList">
+            <div :key="shape.id" v-for="(shape, shapeIndex) in shapeList">
                 <div :style="shape.style"
-                 class="shape"
-                 :index="shapeIndex"
-                 @mousedown.ctrl.exact = "followMouse"
-                 @mousedown.shift.exact = "editShape(shape)"></div>
-                <EditArea v-if="shape.currentlyEditing" :shape="shape"></EditArea>
-            </template>
+                     class="shape"
+                     :key="shape.id"
+                     :index="shapeIndex"
+                     @mousedown.ctrl.exact = "followMouse"
+                     @mousedown.shift.exact = "editShape(shape)"></div>
+                <EditArea v-if="shape.currentlyEditing"
+                          :shape="shape"></EditArea>
+            </div>
         </div>
 
         <ul id="context-menu"
