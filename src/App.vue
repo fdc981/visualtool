@@ -72,6 +72,19 @@
                 </a>
             </li>
         </ul>
+
+        <div id="shape-list" v-if="shapeListVisible">
+            Shapes:
+            <ul>
+                <li v-for="shape in shapeList" class="shape-entry" :key="shape.id">
+                    <span class="text-muted px-2">{{ shape.id }}</span>
+                    <a @click="editShape(shape)">
+                        {{ shape.name }}
+                    </a>
+                </li>
+            </ul>
+
+        </div>
     </div>
 </template>
 
@@ -99,9 +112,10 @@
 
          return {
              currID : sl.map(x => Number(x.id)).reduce(reducer, 0) + 1,
-             contextMenuVisible: true,
+             contextMenuVisible: false,
              contextMenuTarget: "",
              shapeList : sl,
+             shapeListVisible: true,
              following : false
          }
      },
@@ -173,7 +187,12 @@
          },
 
          openContextMenu(e) {
-             e.preventDefault();
+             if (e.target.className === "dropdown-item") {
+                 return;
+             }
+             else {
+                 e.preventDefault();
+             }
 
              this.contextMenuVisible = true;
              this.contextMenuTarget = e.target;
@@ -210,5 +229,16 @@
     border-radius: 10px;
     align-items: center;
     justify-content: center;
-}
+ }
+
+ #shape-list {
+     position: absolute;
+     padding: 1em;
+     bottom: 0;
+     right: 0;
+ }
+
+ #shape-list li {
+     list-style: none;
+ }
 </style>
