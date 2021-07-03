@@ -24,7 +24,7 @@
                      @mousedown.ctrl.exact = "followMouse"
                      @mousedown.shift.exact = "editShape(shape)"></div>
                 <EditArea v-if="shape.currentlyEditing"
-                          :shape="shape"></EditArea>
+                          :shapeIndex="shapeIndex"></EditArea>
             </div>
         </div>
 
