@@ -155,6 +155,12 @@
              this.currID += 1;
          },
 
+         deleteShapeFromContextMenu() {
+             let ind = Number(this.contextMenuTarget.attributes.index.value);
+
+             this.deleteShape(ind);
+         },
+
          deleteShape(ind) {
              this.shapeList = this.shapeList.filter((element, index) => {
                  return index !== ind;
