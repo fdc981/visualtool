@@ -17,12 +17,7 @@
 
         <div id="display" class="vh-100 vw-100">
             <div :key="shape.id" v-for="(shape, shapeIndex) in shapeList">
-                <div :style="shape.style"
-                     class="shape"
-                     :key="shape.id"
-                     :index="shapeIndex"
-                     @mousedown.ctrl.exact = "followMouse"
-                     @mousedown.shift.exact = "editShape(shape)"></div>
+                <ShapeRender :shapeIndex="shapeIndex"></ShapeRender>
                 <EditArea v-if="shape.currentlyEditing"
                           :shapeIndex="shapeIndex"></EditArea>
             </div>
@@ -91,6 +86,7 @@
 <script>
  import ContextMenu from "./components/ContextMenu"
  import EditArea from "./components/EditArea"
+ import ShapeRender from "./components/ShapeRender"
 
  export default {
      data() {
@@ -222,6 +218,7 @@
      components : {
          ContextMenu,
          EditArea,
+         ShapeRender
      }
  }
 </script>
