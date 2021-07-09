@@ -90,6 +90,17 @@
 
  export default {
      data() {
+         return {
+             currID : 0,
+             contextMenuVisible: false,
+             contextMenuTarget: "",
+             shapeList : [],
+             shapeListVisible: true,
+             following : false
+         }
+     },
+
+     mounted() {
          let sl = [];
          try {
              sl = JSON.parse(localStorage.getItem("shapeList"));
@@ -102,13 +113,9 @@
              return Math.max(isNaN(currVal) ? 0 : currVal, acc);
          };
 
-         return {
-             currID : sl.map(x => Number(x.id)).reduce(reducer, 0) + 1,
-             contextMenuVisible: false,
-             contextMenuTarget: "",
-             shapeList : sl,
-             shapeListVisible: true,
-             following : false
+         if (sl !== null) {
+             this.shapeList = sl;
+             this.currID = sl.map(x => Number(x.id)).reduce(reducer, 0) + 1;
          }
      },
 
