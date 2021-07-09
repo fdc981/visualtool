@@ -3,7 +3,7 @@
          class="shape"
          :index="shapeIndex"
          @mousedown.ctrl.exact = "followMouse"
-         @mousedown.shift.exact = "editShape(shape)"></div>
+         @mousedown.shift.exact = "editShape"></div>
 </template>
 
 <script>
@@ -31,6 +31,10 @@
                  this.$parent.shapeList[index].style = target.style.cssText;
              }, { once: true });
          },
+
+         editShape() {
+             this.$parent.shapeList[this.shapeIndex].currentlyEditing = true;
+         }
      }
  }
 </script>
