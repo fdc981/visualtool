@@ -90,9 +90,6 @@
 
  export default {
      data() {
-
-         //////////////////////////////////////////////////
-         // this code should probably be in mounted()
          let sl = [];
          try {
              sl = JSON.parse(localStorage.getItem("shapeList"));
@@ -100,7 +97,6 @@
          catch (e) {
              console.error(e);
          }
-         /////////////////////////////////////////////////
 
          const reducer = (acc, currVal) => {
              return Math.max(isNaN(currVal) ? 0 : currVal, acc);
