@@ -4,7 +4,7 @@
          @mousedown.ctrl.exact="followMouse"
          @keydown.shift="varySelection">
         <div id="edit-region" class="bg-white p-3" contentEditable="true"
-             v-html="this.$parent.shapeList[this.shapeIndex].style.replace(/;/g, ';<br>')"></div>
+             v-html="this.shapeList[this.shapeIndex].style.replace(/;/g, ';<br>')"></div>
         <div class="px-3">
             <a href="#" @click="updateStyle">update</a>&nbsp;
             <a href="#" @click="stopEditing">finish editing</a>
@@ -18,9 +18,11 @@ export default {
         shapeIndex: Number
     },
 
+    inject: ['shapeList'],
+
     methods: {
         updateStyle() {
-            this.$parent.shapeList[this.shapeIndex].style = this.$el.querySelector("#edit-region").textContent;
+            this.shapeList[this.shapeIndex].style = this.$el.querySelector("#edit-region").textContent;
         },
 
         followMouse(e) {
@@ -40,7 +42,7 @@ export default {
 
         stopEditing() {
             this.updateStyle();
-            this.$parent.shapeList[this.shapeIndex].currentlyEditing = false;
+            this.shapeList[this.shapeIndex].currentlyEditing = false;
         },
 
         varySelection(e) {

@@ -100,6 +100,12 @@
          }
      },
 
+     provide() {
+         return {
+             shapeList: this.shapeList
+         }
+     },
+
      mounted() {
          let sl = [];
          try {
@@ -114,7 +120,11 @@
          };
 
          if (sl !== null) {
-             this.shapeList = sl;
+             for (let el of sl) {
+                 this.shapeList.push(el);
+             }
+
+             console.log(this.shapeList);
              this.currID = sl.map(x => Number(x.id)).reduce(reducer, 0) + 1;
          }
      },

@@ -1,5 +1,5 @@
 <template>
-    <div :style="this.$parent.shapeList[shapeIndex].style"
+    <div :style="this.shapeList[shapeIndex].style"
          class="shape"
          :index="shapeIndex"
          @mousedown.ctrl.exact = "followMouse"
@@ -11,6 +11,8 @@
      props: {
          shapeIndex: Number
      },
+
+     inject: ['shapeList'],
 
      methods: {
          followMouse(e) {
@@ -28,12 +30,12 @@
 
                  let index = target.attributes.index.value;
 
-                 this.$parent.shapeList[index].style = target.style.cssText;
+                 this.shapeList[index].style = target.style.cssText;
              }, { once: true });
          },
 
          editShape() {
-             this.$parent.shapeList[this.shapeIndex].currentlyEditing = true;
+             this.shapeList[this.shapeIndex].currentlyEditing = true;
          }
      }
  }
