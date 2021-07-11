@@ -57,12 +57,16 @@ export default {
             let originX = Number(window.innerWidth / 2);
             let originY = Number(window.innerHeight / 2);
 
+            let vue = this;
+
             let onmousemove = (e) => {
                 let diff = (e.clientX - originX) + (e.clientY - originY);
                 let newContents = document.createTextNode(String(diff));
 
                 selectedRange.deleteContents();
                 selectedRange.insertNode(newContents);
+
+                vue.$el.parentNode.querySelector('.shape').style = vue.$el.querySelector("#edit-region").textContent;
             };
 
             // initial event to set origin, continues to onmousemove
