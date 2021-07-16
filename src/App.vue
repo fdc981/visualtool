@@ -1,6 +1,6 @@
 <template>
     <div id="app" v-on="{ contextmenu: openContextMenu, mousedown: closeContextMenu }">
-        <div class="row row-col-auto position-absolute bottom-0 px-4 py-3 gx-3">
+        <div id="toolbar" class="row row-col-auto position-absolute bottom-0 px-4 py-3 gx-3">
             <div class="col">
                 <button class="btn btn-toolbar" @click="addShape">add shape</button>
             </div>
