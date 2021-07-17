@@ -219,13 +219,13 @@
 
 <style>
  button.btn-toolbar {
-    width: 100px;
-    height: 100px;
+     width: 100px;
+     height: 100px;
 
-    border: 3px solid rgba(200, 200, 200, 0.5);
-    border-radius: 10px;
-    align-items: center;
-    justify-content: center;
+     border: 3px solid rgba(200, 200, 200, 0.5);
+     border-radius: 10px;
+     align-items: center;
+     justify-content: center;
  }
 
  #shape-list {
