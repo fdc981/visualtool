@@ -3,7 +3,7 @@
          style="position: absolute; left:50%; top:50%"
          @mousedown.ctrl.exact="followMouse"
          @keydown.shift="varySelection">
-        <div id="edit-region" class="bg-white p-3" contentEditable="true"
+        <div class="edit-region bg-white p-3" contentEditable="true"
              v-html="this.shapeList[this.shapeIndex].style.replace(/;/g, ';<br>')"></div>
         <div class="px-3">
             <a href="#" @click="updateStyle">update</a>&nbsp;
@@ -22,7 +22,7 @@
 
      methods: {
          updateStyle() {
-             this.shapeList[this.shapeIndex].style = this.$el.querySelector("#edit-region").textContent;
+             this.shapeList[this.shapeIndex].style = this.$el.querySelector(".edit-region").textContent;
          },
 
          followMouse(e) {
@@ -66,7 +66,7 @@
                  selectedRange.deleteContents();
                  selectedRange.insertNode(newContents);
 
-                 vue.$el.parentNode.querySelector('.shape').style = vue.$el.querySelector("#edit-region").textContent;
+                 vue.$el.parentNode.querySelector('.shape').style = vue.$el.querySelector(".edit-region").textContent;
              };
 
              // initial event to set origin, continues to onmousemove
