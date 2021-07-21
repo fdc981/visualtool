@@ -121,7 +121,7 @@ module.exports = {
             .end()
     },
 
-    "Context menu disappears after being clicked on" : function(browser) {
+    "Context menu disappears after clicking on one of its items" : function(browser) {
         browser
             .url('http://localhost:8080')
             .waitForElementVisible('#display')
