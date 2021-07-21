@@ -1,5 +1,5 @@
 <template>
-    <div id="app" v-on="{ contextmenu: openContextMenu, mousedown: closeContextMenu }">
+    <div id="app" v-on="{ contextmenu: openContextMenu, mousedown: conditionallyCloseContextMenu }">
         <div id="toolbar" class="row row-col-auto position-absolute bottom-0 px-4 py-3 gx-3">
             <div class="col">
                 <button class="btn btn-toolbar" @click="addShape">add shape</button>
@@ -27,32 +27,32 @@
             :class="{ 'position-absolute': true, 'dropdown-menu': true, 'show': contextMenuVisible }">
             <li v-if="contextMenuTarget.className === 'shape'">
                 <a href="#"
-                   @click="editShape(shapeList[Number(contextMenuTarget.attributes.index.value)])"
+                   @click="editShape(shapeList[Number(contextMenuTarget.attributes.index.value)]); closeContextMenu($event)"
                    class="dropdown-item">
                     edit shape
                 </a>
             </li>
             <li v-if="contextMenuTarget.className === 'shape'">
                 <a href="#"
-                   @click="deleteShape(Number(contextMenuTarget.attributes.index.value))"
+                   @click="deleteShape(Number(contextMenuTarget.attributes.index.value)); closeContextMenu($event)"
                    class="dropdown-item">
                     delete shape
                 </a>
             </li>
             <li v-if="contextMenuTarget.className === 'shape'">
                 <a href="#"
-                   @click="copyShape(Number(contextMenuTarget.attributes.index.value))"
+                   @click="copyShape(Number(contextMenuTarget.attributes.index.value)); closeContextMenu($event)"
                    class="dropdown-item">
                     copy shape
                 </a>
             </li>
             <li v-if="contextMenuTarget.id === 'display'">
-                <a href="#" @click="addShape" class="dropdown-item">
+                <a href="#" @click="addShape($event); closeContextMenu($event)" class="dropdown-item">
                     add shape
                 </a>
             </li>
             <li v-if="contextMenuTarget.id === 'display'">
-                <a href="#" @click="saveShapeList" class="dropdown-item">
+                <a href="#" @click="saveShapeList($event); closeContextMenu($event)" class="dropdown-item">
                     save workspace
                 </a>
             </li>
@@ -201,11 +201,16 @@
              return false;
          },
 
-         closeContextMenu(e) {
+         conditionallyCloseContextMenu(e) {
              if (this.contextMenuVisible && e.target.className !== "dropdown-item") {
                  this.contextMenuVisible = false;
                  return;
              }
+         },
+
+         closeContextMenu(e) {
+             this.contextMenuVisible = false;
+             return;
          }
      },
 
