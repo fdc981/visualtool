@@ -1,5 +1,5 @@
 <template>
-    <div id="app" v-on="{ contextmenu: openContextMenu, mousedown: conditionallyCloseContextMenu }">
+    <div id="app">
         <div id="toolbar" class="row row-col-auto position-absolute bottom-0 px-4 py-3 gx-3">
             <div class="col">
                 <button class="btn btn-toolbar" @click="addShape">add shape</button>
@@ -23,50 +23,12 @@
             </div>
         </div>
 
-        <ul id="context-menu"
-            :class="{ 'position-absolute': true, 'dropdown-menu': true, 'show': contextMenuVisible }">
-            <li v-if="contextMenuTarget.className === 'shape'">
-                <a href="#"
-                   @click="editShape(shapeList[Number(contextMenuTarget.attributes.index.value)]); closeContextMenu($event)"
-                   class="dropdown-item">
-                    edit shape
-                </a>
-            </li>
-            <li v-if="contextMenuTarget.className === 'shape'">
-                <a href="#"
-                   @click="deleteShape(Number(contextMenuTarget.attributes.index.value)); closeContextMenu($event)"
-                   class="dropdown-item">
-                    delete shape
-                </a>
-            </li>
-            <li v-if="contextMenuTarget.className === 'shape'">
-                <a href="#"
-                   @click="copyShape(Number(contextMenuTarget.attributes.index.value)); closeContextMenu($event)"
-                   class="dropdown-item">
-                    copy shape
-                </a>
-            </li>
-            <li v-if="contextMenuTarget.id === 'display'">
-                <a href="#" @click="addShape($event); closeContextMenu($event)" class="dropdown-item">
-                    add shape
-                </a>
-            </li>
-            <li v-if="contextMenuTarget.id === 'display'">
-                <a href="#" @click="saveShapeList($event); closeContextMenu($event)" class="dropdown-item">
-                    save workspace
-                </a>
-            </li>
-            <li v-if="contextMenuTarget.className === 'btn btn-toolbar'">
-                <a class="dropdown-item">
-                    remove button
-                </a>
-            </li>
-            <li v-if="contextMenuTarget.className === 'btn btn-toolbar'">
-                <a class="dropdown-item">
-                    replace button
-                </a>
-            </li>
-        </ul>
+        <ContextMenu @editShape="editShape"
+                     @deleteShape="deleteShape"
+                     @copyShape="copyShape"
+                     @addShape="addShape"
+                     @saveShapeList="saveShapeList">
+        </ContextMenu>
 
         <div id="shape-list" v-if="shapeListVisible">
             Shapes:
@@ -92,8 +54,6 @@
      data() {
          return {
              currID : 0,
-             contextMenuVisible: false,
-             contextMenuTarget: "",
              shapeList : [],
              shapeListVisible: true,
              following : false
@@ -145,12 +105,6 @@
              this.currID += 1;
          },
 
-         deleteShapeFromContextMenu() {
-             let ind = Number(this.contextMenuTarget.attributes.index.value);
-
-             this.deleteShape(ind);
-         },
-
          deleteShape(ind) {
              this.shapeList = this.shapeList.filter((element, index) => {
                  return index !== ind;
@@ -181,37 +135,6 @@
              e.target.style.left = e.clientX / window.innerWidth + "%";
              e.target.style.top = e.clientY / window.innerHeight + "%";
          },
-
-         openContextMenu(e) {
-             if (e.target.className === "dropdown-item") {
-                 return;
-             }
-             else {
-                 e.preventDefault();
-             }
-
-             this.contextMenuVisible = true;
-             this.contextMenuTarget = e.target;
-
-             let menu = this.$el.querySelector("#context-menu");
-
-             menu.style.left = e.pageX + "px";
-             menu.style.top = e.pageY + "px";
-
-             return false;
-         },
-
-         conditionallyCloseContextMenu(e) {
-             if (this.contextMenuVisible && e.target.className !== "dropdown-item") {
-                 this.contextMenuVisible = false;
-                 return;
-             }
-         },
-
-         closeContextMenu(e) {
-             this.contextMenuVisible = false;
-             return;
-         }
      },
 
      components : {
