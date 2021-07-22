@@ -166,4 +166,8 @@
  #shape-list li {
      list-style: none;
  }
+
+ body {
+     overflow: hidden;
+ }
 </style>
