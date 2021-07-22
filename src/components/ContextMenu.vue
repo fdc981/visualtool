@@ -73,7 +73,6 @@
                  else {
                      e.preventDefault();
                  }
-                 console.log(e.target);
 
                  vue.contextMenuVisible = false;
              }
