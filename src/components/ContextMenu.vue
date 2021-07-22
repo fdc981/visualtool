@@ -85,8 +85,8 @@
 
                  let menu = vue.$el;
 
-                 menu.style.left = e.pageX + "px";
-                 menu.style.top = e.pageY + "px";
+                 menu.style.left = e.pageX - 5 + "px";
+                 menu.style.top = e.pageY - 5 + "px";
              }
          });
 
