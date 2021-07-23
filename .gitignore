@@ -3,3 +3,4 @@ src/css/bootstrap.css.map
 dist/
 geckodriver.log
 tests_output/
+chromedriver.log
