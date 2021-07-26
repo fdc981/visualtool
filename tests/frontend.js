@@ -4,42 +4,34 @@ module.exports = {
         let visualtool = browser.page.visualtool();
 
         visualtool.navigate()
-            .waitForElementVisible('@display')
-            .assert.titleContains('visualtool')
-            .assert.visible('@toolbar')
-
-            .click("@toolbarAddShape")
-            .assert.visible("#display div[index='0']")
-            .assert.visible("@firstShape")
-
-            .assert.cssProperty("@firstShape", "position", "absolute")
-            .assert.cssProperty("@firstShape", "width", "50px")
-            .assert.cssProperty("@firstShape", "height", "50px")
-            .assert.cssProperty("@firstShape", "background-color", "rgba(0, 0, 0, 0.5)")
-
-            .end();
+                  .waitForElementVisible('@display')
+                  .assert.titleContains('visualtool')
+                  .assert.visible('@toolbar')
+                  .click("@toolbarAddShape")
+                  .assert.visible("#display div[index='0']")
+                  .assert.visible("@firstShape")
+                  .assert.cssProperty("@firstShape", "position", "absolute")
+                  .assert.cssProperty("@firstShape", "width", "50px")
+                  .assert.cssProperty("@firstShape", "height", "50px")
+                  .assert.cssProperty("@firstShape", "background-color", "rgba(0, 0, 0, 0.5)")
+                  .end();
     },
 
     "New shape can be created via 'add shape' button of context menu" : function(browser) {
         let visualtool = browser.page.visualtool();
 
         visualtool.navigate()
-            .waitForElementVisible('@display')
-            .moveToElement("@display", 50, 50)
-
-        browser.mouseButtonClick('right')
-
-        visualtool
-            .waitForElementVisible('@contextMenu')
-            .click("@menuAddShape")
-            .assert.visible("@firstShape")
-
-            .assert.cssProperty("@firstShape", "position", "absolute")
-            .assert.cssProperty("@firstShape", "width", "50px")
-            .assert.cssProperty("@firstShape", "height", "50px")
-            .assert.cssProperty("@firstShape", "background-color", "rgba(0, 0, 0, 0.5)")
-
-            .end();
+                  .waitForElementVisible('@display')
+                  .moveToElement("@display", 50, 50)
+                  .api.mouseButtonClick('right')
+        visualtool.waitForElementVisible('@contextMenu')
+                  .click("@menuAddShape")
+                  .assert.visible("@firstShape")
+                  .assert.cssProperty("@firstShape", "position", "absolute")
+                  .assert.cssProperty("@firstShape", "width", "50px")
+                  .assert.cssProperty("@firstShape", "height", "50px")
+                  .assert.cssProperty("@firstShape", "background-color", "rgba(0, 0, 0, 0.5)")
+                  .end();
     },
 
     "An edit window can be opened by holding shift and right-clicking on a shape" : function(browser) {
