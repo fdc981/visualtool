@@ -21,23 +21,24 @@ module.exports = {
     },
 
     "New shape can be created via 'add shape' button of context menu" : function(browser) {
-        browser
-            .url('http://localhost:8080/')
-            .assert.titleContains('visualtool')
-            .waitForElementVisible('#display')
-            .moveToElement("#display", 50, 50)
-            .mouseButtonClick("right")
-            .waitForElementVisible('#context-menu')
-        /* select add shape and click */
-            .useXpath()
-            .click("//a[normalize-space()='add shape']")
-            .useCss()
-            .assert.visible("#display div[index='0']")
-        /* verify that the new shape has appropriate styling */
-            .assert.cssProperty("#display div[index='0']", "position", "absolute")
-            .assert.cssProperty("#display div[index='0']", "width", "50px")
-            .assert.cssProperty("#display div[index='0']", "height", "50px")
-            .assert.cssProperty("#display div[index='0']", "background-color", "rgba(0, 0, 0, 0.5)")
+        let visualtool = browser.page.visualtool();
+
+        visualtool.navigate()
+            .waitForElementVisible('@display')
+            .moveToElement("@display", 50, 50)
+
+        browser.mouseButtonClick('right')
+
+        visualtool
+            .waitForElementVisible('@contextMenu')
+            .click("@menuAddShape")
+            .assert.visible("@firstShape")
+
+            .assert.cssProperty("@firstShape", "position", "absolute")
+            .assert.cssProperty("@firstShape", "width", "50px")
+            .assert.cssProperty("@firstShape", "height", "50px")
+            .assert.cssProperty("@firstShape", "background-color", "rgba(0, 0, 0, 0.5)")
+
             .end();
     },
 
