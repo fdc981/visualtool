@@ -82,5 +82,11 @@ module.exports = {
 
       return this.waitForElementVisible('@contextMenu');
     },
+
+    shiftClick(targetSelector) {
+      this.api.keys(''); // press and hold shift
+      
+      return this.click(targetSelector);
+    }
   }]
 };
