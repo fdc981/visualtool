@@ -57,15 +57,6 @@ var contextMenuElements = {
   },
 };
 
-var contextMenuCommands = {
-  menuAddShape() {
-    this.api.mouseButtonClick("right");
-
-    return this.waitForElementVisible('@contextMenu')
-               .click("@menuAddShape")
-  }
-};
-
 
 var shapeListElements = {
   shapeList: {
@@ -85,7 +76,11 @@ module.exports = {
     shapeListElements,
   ],
 
-  commands: [
-    contextMenuCommands
-  ]
+  commands: [{
+    openMenu() {
+      this.api.mouseButtonClick("right");
+
+      return this.waitForElementVisible('@contextMenu');
+    },
+  }]
 };
