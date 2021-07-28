@@ -87,6 +87,21 @@ module.exports = {
       this.api.keys(''); // press and hold shift
       
       return this.click(targetSelector);
+    },
+
+    dragAndDrop(targetSelector, x, y) {
+      // drag and drop does not work??
+      let page = this;
+
+      this.moveToElement(targetSelector, 0, 0, function(val, visualtool) {
+        page.api.mouseButtonDown("left", function(val, visualtool) {
+          page.api.moveToElement("body", x, y, function(val, visualtool) {
+            page.api.mouseButtonUp("left");
+          });
+        });
+      });
+
+      return this;
     }
   }]
 };
