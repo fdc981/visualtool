@@ -126,4 +126,26 @@ module.exports = {
                       .assert.cssProperty("@firstShape", "top", expectedTop)
         });
     },
+
+    "Saving workspace (through context menu) preserves shapes after reloading page" : function(browser) {
+        let visualtool = browser.page.visualtool();
+
+        visualtool.navigate()
+                  .waitForElementVisible('@display')
+                  .moveToElement("@display", 50, 50)
+                  .openMenu()
+                  .click("@menuAddShape")
+                  .assert.visible("@firstShape")
+                  .openMenu()
+                  .click("@menuSaveWorkspace")
+                  .api.refresh()
+
+        visualtool.waitForElementVisible('@display')
+                  .assert.visible("@firstShape")
+                  .assert.cssProperty("@firstShape", "position", "absolute")
+                  .assert.cssProperty("@firstShape", "width", "50px")
+                  .assert.cssProperty("@firstShape", "height", "50px")
+                  .assert.cssProperty("@firstShape", "background-color", "rgba(0, 0, 0, 0.5)")
+                  .end();
+    },
 };
