@@ -47,7 +47,7 @@ module.exports = {
                   .waitForElementVisible("@firstShape")
                   .shiftClick("@firstShape")
                   .assert.visible("#display .edit-region")
-                  .end()
+                  .end();
     },
 
     "An edit window can be opened via the 'edit shape' button of the context menu" : function(browser) {
@@ -63,7 +63,7 @@ module.exports = {
                   .openMenu()
                   .click("@menuEditShape")
                   .assert.visible("#display .edit-region")
-                  .end()
+                  .end();
     },
 
     "Saving workspace (through context menu) preserves shapes after reloading page" : function(browser) {
@@ -77,7 +77,7 @@ module.exports = {
                   .assert.visible("@firstShape")
                   .openMenu()
                   .click("@menuSaveWorkspace")
-                  .api.refresh()
+                  .api.refresh();
 
         visualtool.waitForElementVisible('@display')
                   .assert.visible("@firstShape")
@@ -104,10 +104,11 @@ module.exports = {
             visualtool.openMenu()
                       .click("@menuAddShape")
                       .waitForElementVisible("@firstShape")
-                      .api.keys('') // press and hold control
+                      .api.keys(''); // press and hold control
             visualtool.dragAndDrop("@firstShape", randomX, randomY)
                       .assert.cssProperty("@firstShape", "left", expectedLeft)
                       .assert.cssProperty("@firstShape", "top", expectedTop)
+                      .end();
         });
     },
 };

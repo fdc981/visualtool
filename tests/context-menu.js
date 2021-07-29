@@ -13,7 +13,7 @@ module.exports = {
                   .assert.visible("@menuAddShape")
                   .assert.visible("@menuSaveWorkspace")
                   .assert.visible("@menuOpenCollection")
-                  .end()
+                  .end();
     },
 
     "Context menu can be opened on a shape with expected items" : function(browser) {
@@ -30,7 +30,7 @@ module.exports = {
                   .assert.visible("@menuEditShape")
                   .assert.visible("@menuDeleteShape")
                   .assert.visible("@menuCopyShape")
-                  .end()
+                  .end();
     },
 
     "Context menu disappears after clicking on one of its items" : function(browser) {
@@ -42,6 +42,6 @@ module.exports = {
                   .openMenu()
                   .click("@menuAddShape")
                   .assert.cssProperty("@contextMenu", "display", "none")
-                  .end()
+                  .end();
     },
 };
