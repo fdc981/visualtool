@@ -12,6 +12,7 @@ module.exports = {
                   .openMenu()
                   .assert.visible("@menuAddShape")
                   .assert.visible("@menuSaveWorkspace")
+                  .assert.visible("@menuOpenCollection")
                   .end();
     },
 

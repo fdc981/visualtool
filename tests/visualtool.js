@@ -55,6 +55,10 @@ var contextMenuElements = {
         selector: "//ul[@id = 'context-menu']//a[normalize-space()='save workspace']",
         locateStrategy: 'xpath'
     },
+    menuOpenCollection: {
+        selector: "//ul[@id = 'context-menu']//a[normalize-space()='open collection']",
+        locateStrategy: 'xpath'
+    },
 };
 
 
@@ -62,6 +66,14 @@ var shapeListElements = {
     shapeList: {
         selector: '#shape-list',
         locateStrategy: 'css selector'
+    },
+};
+
+
+var collectionElements = {
+    collection: {
+        selector: "#collection",
+        locateStrategy: "css selector"
     },
 };
 
@@ -74,6 +86,7 @@ module.exports = {
         displayElements,
         contextMenuElements,
         shapeListElements,
+        collectionElements,
     ],
 
     commands: [{
@@ -89,17 +102,37 @@ module.exports = {
             return this.click(targetSelector);
         },
 
-        dragAndDrop(targetSelector, x, y) {
-            // drag and drop does not work??
-            let page = this;
+        dragAndDrop() {
+            if (arguments.length !== 2 || arguments.length !== 3) {
+                throw "2 or 3 arguments required for dragAndDrop";
+            }
 
-            this.moveToElement(targetSelector, 0, 0, function(val, visualtool) {
-                page.api.mouseButtonDown("left", function(val, visualtool) {
-                    page.api.moveToElement("body", x, y, function(val, visualtool) {
-                        page.api.mouseButtonUp("left");
+            let page = this;
+            let sourceSelector = arguments[0];
+
+            if (arguments.length === 2) {
+                let toX = arguments[1];
+                let toY = arguments[2];
+
+                this.moveToElement(sourceSelector, 0, 0, function() {
+                    page.api.mouseButtonDown("left", function() {
+                        page.api.moveToElement("body", toX, toY, function() {
+                            page.api.mouseButtonUp("left");
+                        });
                     });
                 });
-            });
+            }
+            else {
+                let destinationSelector = arguments[1];
+
+                this.moveToElement(sourceSelector, 0, 0, function() {
+                    page.api.mouseButtonDown("left", function() {
+                        page.api.moveToElement(destinationSelector, 1, 1, function() {
+                            page.api.mouseButtonUp("left");
+                        });
+                    });
+                });
+            }
 
             return this;
         }
