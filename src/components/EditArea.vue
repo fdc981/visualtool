@@ -1,7 +1,7 @@
 <template>
     <div class="font-monospace"
          style="position: absolute; left:50%; top:50%"
-         @mousedown.ctrl.exact="followMouse"
+         @mousedown.ctrl.exact="dragAndDrop"
          @keydown.shift="varySelection">
         <div class="edit-region bg-white p-3" contentEditable="true"
              v-html="this.shapeList[this.shapeIndex].style.replace(/;/g, ';<br>')"></div>
@@ -25,10 +25,11 @@
              this.shapeList[this.shapeIndex].style = this.$el.querySelector(".edit-region").textContent;
          },
 
-         followMouse(e) {
+         dragAndDrop() {
              let target = this.$el;
 
              let onMouseMove = (e) => {
+                 e.preventDefault();
                  target.style.left = e.clientX / window.innerWidth * 100 + "%";
                  target.style.top = e.clientY / window.innerHeight * 100 + "%";
              };

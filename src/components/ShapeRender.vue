@@ -2,7 +2,7 @@
     <div :style="this.shapeList[shapeIndex].style"
          class="shape"
          :index="shapeIndex"
-         @mousedown.ctrl.exact = "followMouse"
+         @mousedown.ctrl.exact = "dragAndDrop"
          @mousedown.shift.exact = "editShape"></div>
 </template>
 
@@ -15,10 +15,11 @@
      inject: ['shapeList'],
 
      methods: {
-         followMouse(e) {
-             let target = e.target;
+         dragAndDrop() {
+             let target = this.$el;
 
              let onMouseMove = (e) => {
+                 e.preventDefault();
                  target.style.left = e.clientX / window.innerWidth * 100 + "%";
                  target.style.top = e.clientY / window.innerHeight * 100 + "%";
              };
