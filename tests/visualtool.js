@@ -103,8 +103,8 @@ module.exports = {
         },
 
         dragAndDrop() {
-            if (arguments.length !== 2 || arguments.length !== 3) {
-                throw "2 or 3 arguments required for dragAndDrop";
+            if (arguments.length !== 2 && arguments.length !== 3) {
+                throw new Error("2 or 3 arguments required for dragAndDrop");
             }
 
             let page = this;
