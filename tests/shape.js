@@ -99,7 +99,7 @@ module.exports = {
             let expectedLeft = randomX + "px";
             let expectedTop = randomY + "px";
 
-            console.log(randomX, randomY);
+            console.log(`Initialised random point (${randomX}, ${randomY})`);
 
             visualtool.openMenu()
                       .click("@menuAddShape")
