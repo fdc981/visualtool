@@ -15,8 +15,8 @@ module.exports = {
                   .openMenu()
                   .click("@menuOpenCollection")
                   .waitForElementVisible("@collection")
-                  .dragAndDrop("@firstShape", "@collection")
-                  .assert.visible("@collection [index='0']")
+                  .dragAndDrop("@firstShape", "#collection")
+                  .assert.visible("#collection [index='0']")
                   .end();
     },
 
@@ -32,14 +32,14 @@ module.exports = {
                   .openMenu()
                   .click("@menuOpenCollection")
                   .waitForElementVisible("@collection")
-                  .dragAndDrop("@firstShape", "@collection")
+                  .dragAndDrop("@firstShape", "#collection")
                   .api.refresh();
 
         visualtool.waitForElementVisible('@display')
                   .openMenu()
                   .click("@menuOpenCollection")
                   .waitForElementVisible("@collection")
-                  .assert.visible("@collection [index='0']")
+                  .assert.visible("#collection [index='0']")
                   .end();
     },
 };

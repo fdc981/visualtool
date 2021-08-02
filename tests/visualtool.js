@@ -110,7 +110,7 @@ module.exports = {
             let page = this;
             let sourceSelector = arguments[0];
 
-            if (arguments.length === 2) {
+            if (arguments.length === 3) {
                 let toX = arguments[1];
                 let toY = arguments[2];
 
