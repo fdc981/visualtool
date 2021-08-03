@@ -27,7 +27,9 @@
                      @deleteShape="deleteShape"
                      @copyShape="copyShape"
                      @addShape="addShape"
-                     @saveShapeList="saveShapeList">
+                     @saveShapeList="saveShapeList"
+                     @openCollection="openCollection"
+                     @closeCollection="closeCollection">
         </ContextMenu>
 
         <div id="shape-list" v-if="shapeListVisible">
@@ -42,6 +44,9 @@
             </ul>
 
         </div>
+
+        <Collection v-if="collectionVisible"></Collection>
+
     </div>
 </template>
 
@@ -49,6 +54,7 @@
  import ContextMenu from "./components/ContextMenu"
  import EditArea from "./components/EditArea"
  import ShapeRender from "./components/ShapeRender"
+ import Collection from "./components/Collection"
 
  export default {
      data() {
@@ -56,13 +62,16 @@
              currID : 0,
              shapeList : [],
              shapeListVisible: true,
-             following : false
+             following : false,
+             collectionVisible : false,
+             shapeHeld : null,
          }
      },
 
      provide() {
          return {
-             shapeList: this.shapeList
+             shapeList: this.shapeList,
+             shapeHeld: { val: this.shapeHeld },
          }
      },
 
@@ -135,12 +144,22 @@
              e.target.style.left = e.clientX / window.innerWidth + "%";
              e.target.style.top = e.clientY / window.innerHeight + "%";
          },
+
+         openCollection(e) {
+             console.log("called");
+             this.collectionVisible = true;
+         },
+
+         closeCollection(e) {
+             this.collectionVisible = false;
+         }
      },
 
      components : {
          ContextMenu,
          EditArea,
-         ShapeRender
+         ShapeRender,
+         Collection
      }
  }
 </script>
@@ -150,7 +169,7 @@
      width: 100px;
      height: 100px;
 
-     border: 3px solid rgba(200, 200, 200, 0.5);
+     border: 2px solid rgba(200, 200, 200, 0.5);
      border-radius: 10px;
      align-items: center;
      justify-content: center;

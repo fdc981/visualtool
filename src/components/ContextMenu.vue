@@ -32,6 +32,16 @@
                 save workspace
             </a>
         </li>
+        <li v-if="contextMenuTarget.id === 'display'">
+            <a href="#" @click="$emit('openCollection', $event); closeContextMenu($event)" class="dropdown-item">
+                open collection
+            </a>
+        </li>
+        <li v-if="contextMenuTarget.id === 'collection'">
+            <a href="#" @click="$emit('closeCollection', $event); closeContextMenu($event)" class="dropdown-item">
+                close collection
+            </a>
+        </li>
         <li v-if="contextMenuTarget.className === 'btn btn-toolbar'">
             <a class="dropdown-item">
                 remove button

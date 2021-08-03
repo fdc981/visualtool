@@ -12,11 +12,12 @@
          shapeIndex: Number
      },
 
-     inject: ['shapeList'],
+     inject: ['shapeList', 'shapeHeld'],
 
      methods: {
          dragAndDrop() {
              let target = this.$el;
+             this.shapeHeld.val = this.shapeList[this.shapeIndex];
 
              let onMouseMove = (e) => {
                  e.preventDefault();
