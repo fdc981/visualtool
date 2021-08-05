@@ -11,7 +11,7 @@
                 <button class="btn btn-toolbar">delete</button>
             </div>
             <div class="col">
-                <button class="btn btn-toolbar" @click="saveShapeList">save</button>
+                <button class="btn btn-toolbar" @click="saveShapeList">save workspace</button>
             </div>
         </div>
 

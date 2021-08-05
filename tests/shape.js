@@ -88,6 +88,27 @@ module.exports = {
                   .end();
     },
 
+    "Saving workspace (through toolbar) preserves shapes after reloading page" : function(browser) {
+        let visualtool = browser.page.visualtool();
+
+        visualtool.navigate()
+                  .waitForElementVisible('@display')
+                  .moveToElement("@display", 50, 50)
+                  .openMenu()
+                  .click("@menuAddShape")
+                  .assert.visible("@firstShape")
+                  .click("@toolbarSaveWorkspace")
+                  .api.refresh();
+
+        visualtool.waitForElementVisible('@display')
+                  .assert.visible("@firstShape")
+                  .assert.cssProperty("@firstShape", "position", "absolute")
+                  .assert.cssProperty("@firstShape", "width", "50px")
+                  .assert.cssProperty("@firstShape", "height", "50px")
+                  .assert.cssProperty("@firstShape", "background-color", "rgba(0, 0, 0, 0.5)")
+                  .end();
+    },
+
     "Shapes can be dragged and dropped into any point on the screen" : function(browser) {
         let visualtool = browser.page.visualtool();
 
