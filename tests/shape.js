@@ -20,7 +20,7 @@ module.exports = {
                   .end();
     },
 
-    "New shape can be created via 'add shape' button of context menu" : function(browser) {
+    "A new shape can be created via 'add shape' button of context menu" : function(browser) {
         let visualtool = browser.page.visualtool();
 
         visualtool.navigate()
