@@ -109,6 +109,36 @@ module.exports = {
                   .end();
     },
 
+    "Existing shapes saved in localStorage are retrieved page load" : function(browser) {
+        let visualtool = browser.page.visualtool();
+
+
+        visualtool.navigate();
+
+        visualtool.api.execute(function() {
+                      let testData = JSON.stringify([
+                          {
+                              id: 0,
+                              name: "test shape",
+                              style: "position: absolute; width: 50px; height: 50px; background-color: blue;",
+                              currentlyEditing: false
+                          }
+                      ]);
+
+                      window.localStorage.setItem('shapeList', testData);
+                  }, [], function() {
+                      visualtool.api.refresh();
+
+                      visualtool.assert.visible("@display")
+                                .assert.visible("@firstShape")
+                                .assert.cssProperty("@firstShape", "position", "absolute")
+                                .assert.cssProperty("@firstShape", "width", "50px")
+                                .assert.cssProperty("@firstShape", "height", "50px")
+                                .assert.cssProperty("@firstShape", "background-color", "rgba(0, 0, 255, 1)")
+                                .end();
+                  });
+    },
+
     "Shapes can be dragged and dropped into any point on the screen" : function(browser) {
         let visualtool = browser.page.visualtool();
 
