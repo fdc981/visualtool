@@ -66,4 +66,18 @@ module.exports = {
                       .end();
         });
     },
+
+    "The collection cannot be opened twice with context menu" : function(browser) {
+        let visualtool = browser.page.visualtool();
+
+        visualtool.navigate()
+                  .waitForElementVisible('@display')
+                  .moveToElement("@display", 50, 50)
+                  .openMenu()
+                  .click("@menuOpenCollection")
+                  .waitForElementVisible("@collection")
+                  .openMenu()
+                  .assert.not.visible("@menuOpenCollection")
+                  .end()
+    },
 };
