@@ -114,14 +114,16 @@
              this.currID += 1;
          },
 
-         deleteShape(ind) {
+         deleteShape(targetShapeNode) {
+             let ind = Number(targetShapeNode.attributes.index.value);
              this.shapeList = this.shapeList.filter((element, index) => {
                  return index !== ind;
              });
          },
 
-         copyShape(ind) {
+         copyShape(targetShapeNode) {
              // Copies a shape, assigning it with currID
+             let ind = Number(targetShapeNode.attributes.index.value);
              let newShape = JSON.parse(JSON.stringify(this.shapeList[ind]));
              newShape.id = this.currID;
 
@@ -130,7 +132,8 @@
              this.currID += 1;
          },
 
-         editShape(shape) {
+         editShape(targetShapeNode) {
+             let shape = this.shapeList[Number(targetShapeNode.attributes.index.value)];
              shape.currentlyEditing = true;
          },
 

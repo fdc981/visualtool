@@ -1,76 +1,66 @@
 <template>
     <ul id="context-menu"
         :class="{ 'position-absolute': true, 'dropdown-menu': true, 'show': contextMenuVisible }">
-        <li v-if="contextMenuTarget.className === 'shape'">
-            <a href="#"
-               @click="$emit('editShape', shapeList[Number(contextMenuTarget.attributes.index.value)]); closeContextMenu($event)"
-               class="dropdown-item">
-                edit shape
-            </a>
-        </li>
-        <li v-if="contextMenuTarget.className === 'shape'">
-            <a href="#"
-               @click="$emit('deleteShape', Number(contextMenuTarget.attributes.index.value)); closeContextMenu($event)"
-               class="dropdown-item">
-                delete shape
-            </a>
-        </li>
-        <li v-if="contextMenuTarget.className === 'shape'">
-            <a href="#"
-               @click="$emit('copyShape', Number(contextMenuTarget.attributes.index.value)); closeContextMenu($event)"
-               class="dropdown-item">
-                copy shape
-            </a>
-        </li>
-        <li v-if="contextMenuTarget.id === 'display'">
-            <a href="#" @click="$emit('addShape', $event); closeContextMenu($event)" class="dropdown-item">
-                add shape
-            </a>
-        </li>
-        <li v-if="contextMenuTarget.id === 'display'">
-            <a href="#" @click="$emit('saveShapeList', $event); closeContextMenu($event)" class="dropdown-item">
-                save workspace
-            </a>
-        </li>
-        <li v-if="contextMenuTarget.id === 'display'">
-            <a href="#" @click="$emit('openCollection', $event); closeContextMenu($event)" class="dropdown-item">
-                open collection
-            </a>
-        </li>
-        <li v-if="contextMenuTarget.id === 'collection'">
-            <a href="#" @click="$emit('closeCollection', $event); closeContextMenu($event)" class="dropdown-item">
-                close collection
-            </a>
-        </li>
-        <li v-if="contextMenuTarget.className === 'btn btn-toolbar'">
-            <a class="dropdown-item">
-                remove button
-            </a>
-        </li>
-        <li v-if="contextMenuTarget.className === 'btn btn-toolbar'">
-            <a class="dropdown-item">
-                replace button
-            </a>
-        </li>
+        <ContextMenuItem :condition="contextMenuTarget.className === 'shape'" @click.native="action('editShape')">
+            edit shape
+        </ContextMenuItem>
+        <ContextMenuItem :condition="contextMenuTarget.className === 'shape'" @click.native="action('deleteShape')">
+            delete shape
+        </ContextMenuItem>
+        <ContextMenuItem :condition="contextMenuTarget.className === 'shape'" @click.native="action('copyShape')">
+            copy shape
+        </ContextMenuItem>
+        <ContextMenuItem :condition="contextMenuTarget.id === 'display'" @click.native="action('addShape')">
+            add shape
+        </ContextMenuItem>
+        <ContextMenuItem :condition="contextMenuTarget.id === 'display'" @click.native="action('saveShapeList')">
+            save workspace
+        </ContextMenuItem>
+        <ContextMenuItem :condition="contextMenuTarget.id === 'display'" @click.native="action('openCollection')">
+            open collection
+        </ContextMenuItem>
+        <ContextMenuItem :condition="contextMenuTarget.id === 'collection'" @click.native="action('closeCollection')">
+            close collection
+        </ContextMenuItem>
+        <ContextMenuItem :condition="contextMenuTarget.className === 'btn btn-toolbar'">
+            remove button
+        </ContextMenuItem>
+        <ContextMenuItem :condition="contextMenuTarget.className === 'btn btn-toolbar'">
+            replace button
+        </ContextMenuItem>
     </ul>
 </template>
 
 <script>
+ import ContextMenuItem from "./ContextMenuItem"
+
  export default {
      data() {
          return {
              contextMenuVisible: false,
-             contextMenuTarget: "",
+             contextMenuTarget: { id: null, className: null },
              eventListener: {}
          }
      },
 
      inject: ['shapeList'],
 
+     provide() {
+         return {
+             contextMenuTarget: this.contextMenuTarget,
+         }
+     },
+
      methods : {
          closeContextMenu() {
              this.contextMenuVisible = false;
-         }
+         },
+
+         action(actionName) {
+             // Invoke an action
+             this.$emit(actionName, this.contextMenuTarget);
+             this.closeContextMenu();
+         },
      },
 
      mounted() {
@@ -105,6 +95,10 @@
                  return;
              }
          });
+     },
+
+     components: {
+         ContextMenuItem,
      }
  }
 </script>
