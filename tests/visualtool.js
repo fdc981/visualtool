@@ -7,6 +7,10 @@ var toolbarElements = {
     toolbarAddShape: {
         selector: "//div[@id = 'toolbar']//button[normalize-space()='add shape']",
         locateStrategy: 'xpath'
+    },
+    toolbarSaveWorkspace: {
+        selector: "//div[@id = 'toolbar']//button[normalize-space()='save workspace']",
+        locateStrategy: 'xpath'
     }
 };
 
