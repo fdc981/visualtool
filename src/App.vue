@@ -29,7 +29,8 @@
                      @addShape="addShape"
                      @saveShapeList="saveShapeList"
                      @openCollection="openCollection"
-                     @closeCollection="closeCollection">
+                     @closeCollection="closeCollection"
+                     :collectionVisible="collectionVisible">
         </ContextMenu>
 
         <div id="shape-list" v-if="shapeListVisible">

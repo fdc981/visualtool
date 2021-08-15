@@ -16,10 +16,11 @@
         <ContextMenuItem :condition="contextMenuTarget.id === 'display'" @click.native="action('saveShapeList')">
             save workspace
         </ContextMenuItem>
-        <ContextMenuItem :condition="contextMenuTarget.id === 'display'" @click.native="action('openCollection')">
+        <ContextMenuItem :condition="contextMenuTarget.id === 'display' && !collectionVisible" @click.native="action('openCollection')">
             open collection
         </ContextMenuItem>
-        <ContextMenuItem :condition="contextMenuTarget.id === 'collection'" @click.native="action('closeCollection')">
+        <ContextMenuItem :condition="(contextMenuTarget.id === 'display' || contextMenuTarget.id === 'collection') && collectionVisible"
+                         @click.native="action('closeCollection')">
             close collection
         </ContextMenuItem>
         <ContextMenuItem :condition="contextMenuTarget.className === 'btn btn-toolbar'">
@@ -41,6 +42,10 @@
              contextMenuTarget: { id: null, className: null },
              eventListener: {}
          }
+     },
+
+     props: {
+         collectionVisible: Boolean
      },
 
      inject: ['shapeList'],
