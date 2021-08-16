@@ -1,5 +1,5 @@
 <template>
-    <li v-if="condition">
+    <li v-show="condition">
         <a href="#"
            class="dropdown-item">
             <slot></slot>
