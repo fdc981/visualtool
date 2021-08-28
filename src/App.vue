@@ -11,6 +11,9 @@
                 <button class="btn btn-toolbar">delete</button>
             </div>
             <div class="col">
+                <button class="btn btn-toolbar" @click="exportVisual">export</button>
+            </div>
+            <div class="col">
                 <button class="btn btn-toolbar" @click="saveShapeList">save workspace</button>
             </div>
         </div>
@@ -156,7 +159,31 @@
 
          closeCollection(e) {
              this.collectionVisible = false;
-         }
+         },
+
+         exportVisual() {
+             let result = new Blob([this.$el.querySelector("#display").innerHTML], {type: 'text/html'});
+
+             function prompt_download(blob, file_name) {
+                 console.log("prompting download for:", file_name);
+                 // force prompt download by clicking on a generated <a>
+                 // credit: https://davidwalsh.name/javascript-download
+                 const a = document.createElement('a');
+                 a.style.display = 'none';
+                 document.body.appendChild(a);
+
+                 a.href = window.URL.createObjectURL(blob);
+
+                 a.setAttribute("download", file_name);
+
+                 a.click();
+
+                 window.URL.revokeObjectURL(a.href);
+                 document.body.removeChild(a);
+             }
+
+             prompt_download(result, "export.html");
+         },
      },
 
      components : {
