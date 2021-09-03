@@ -9,7 +9,7 @@ Creative programming environment.
 npm install
 
 # serve project
-npm num build
+npm run build
 
 # run all tests
 npm test
