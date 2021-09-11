@@ -7,12 +7,12 @@ config.provide['shapeList'] = {
     val: {}
 }
 
-test('contains expected items', () => {
+test('is invisible upon mount', () => {
     const menu = mount(ContextMenu, {
         propsData: {
             collectionVisible: false
         }
     })
 
-    expect(menu.text()).toContain('edit shape')
+    expect(menu.vm.$data.contextMenuVisible).toBe(false)
 });
