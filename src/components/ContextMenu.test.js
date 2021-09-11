@@ -4,15 +4,15 @@ import { config } from '@vue/test-utils'
 
 // provide a mock shapeList prop
 config.provide['shapeList'] = {
-  val: {}
+    val: {}
 }
 
-test('displays message', () => {
-  const menu = mount(ContextMenu, {
-    propsData: {
-      collectionVisible: false
-    }
-  })
+test('contains expected items', () => {
+    const menu = mount(ContextMenu, {
+        propsData: {
+            collectionVisible: false
+        }
+    })
 
-  expect(menu.text()).toContain('edit shape')
+    expect(menu.text()).toContain('edit shape')
 });
