@@ -13,3 +13,30 @@ test('is invisible upon mount', () => {
 
     expect(wrapper.vm.$root.style.visibility).toBe("hidden")
 });
+
+test('is visible when opened', () => {
+    const wrapper = mount(ContextMenu)
+
+    wrapper.open()
+
+    expect(wrapper.vm.$root.style.visibility).toBe("visible")
+});
+
+test('is invisible after closing', () => {
+    const wrapper = mount(ContextMenu)
+
+    wrapper.open()
+    wrapper.close()
+
+    expect(wrapper.vm.$root.style.visibility).toBe("hidden")
+});
+
+test('calling action emits event and closes', () => {
+    const wrapper = mount(ContextMenu)
+
+    wrapper.open()
+    wrapper.action('asdf')
+
+    expect(wrapper.emitted().asdf).toBe("truthy")
+    expect(wrapper.vm.$root.style.visibility).toBe("hidden")
+});
