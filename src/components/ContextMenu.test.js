@@ -20,7 +20,7 @@ test('is visible when opened', () => {
 
     wrapper.open()
 
-    expect(wrapper.vm.$root.style.visibility).toBe("visible")
+    expect(wrapper.find("ul").isVisible()).toBe(true)
 });
 
 test('is invisible after closing', () => {
@@ -29,7 +29,7 @@ test('is invisible after closing', () => {
     wrapper.open()
     wrapper.close()
 
-    expect(wrapper.vm.$root.style.visibility).toBe("hidden")
+    expect(wrapper.find("ul").isVisible()).toBe(false)
 });
 
 test('calling action emits event and closes', () => {
@@ -39,5 +39,5 @@ test('calling action emits event and closes', () => {
     wrapper.action('asdf')
 
     expect(wrapper.emitted().asdf).toBe("truthy")
-    expect(wrapper.vm.$root.style.visibility).toBe("hidden")
+    expect(wrapper.find("ul").isVisible()).toBe(false)
 });
