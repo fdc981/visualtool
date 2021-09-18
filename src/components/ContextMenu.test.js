@@ -12,7 +12,7 @@ config.provide['shapeList'] = {
 test('is invisible upon mount', () => {
     const wrapper = mount(ContextMenu)
 
-    expect(wrapper.vm.$root.style.visibility).toBe("hidden")
+    expect(wrapper.find("ul").isVisible()).toBe(false)
 });
 
 test('is visible when opened', () => {
