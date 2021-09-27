@@ -11,7 +11,9 @@ test('is invisible by default', () => {
 
 test('is invisible when condition is false', () => {
     const wrapper = mount(ContextMenuItem, {
-        condition: false
+        propsData: {
+            condition: false
+        }
     })
 
     expect(wrapper.find("li").isVisible()).toBe(false)
@@ -19,7 +21,9 @@ test('is invisible when condition is false', () => {
 
 test('is visible when condition is true', () => {
     const wrapper = mount(ContextMenuItem, {
-        condition: true
+        propsData: {
+            condition: true
+        }
     })
 
     expect(wrapper.find("li").isVisible()).toBe(true)

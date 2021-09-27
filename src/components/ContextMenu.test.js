@@ -17,7 +17,9 @@ test('is invisible upon default', () => {
 
 test('is invisible when the isVisible prop is false', () => {
     const wrapper = mount(ContextMenu, {
-        isVisible: false
+        propsData: {
+            isVisible: false
+        }
     })
 
     expect(wrapper.find("ul").isVisible()).toBe(false)
@@ -25,7 +27,9 @@ test('is invisible when the isVisible prop is false', () => {
 
 test('is visible when the isVisible prop is true', () => {
     const wrapper = mount(ContextMenu, {
-        isVisible: true
+        propsData: {
+            isVisible: true
+        }
     })
 
     expect(wrapper.find("ul").isVisible()).toBe(true)
@@ -33,8 +37,10 @@ test('is visible when the isVisible prop is true', () => {
 
 test('calling action emits event and closes', () => {
     const wrapper = mount(ContextMenu, {
-        isVisible: true,
-        context: {}
+        propsData: {
+            isVisible: true,
+            context: {}
+        }
     })
 
     wrapper.vm.action('asdf')
