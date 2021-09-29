@@ -30,7 +30,7 @@ test("displays shapes from the shapeList with the given shapeIndex", () => {
     expect(wrapper.vm.$el.style.cssText).toBe(expectedCSSText);
 });
 
-test("doing shift+mousedown on this component turns currentlyEditing to be true", () => {
+test("doing shift+mousedown on this component turns currentlyEditing to be true", async () => {
     var index = 0;
 
     const wrapper = mount(ShapeRender, {
@@ -41,7 +41,7 @@ test("doing shift+mousedown on this component turns currentlyEditing to be true"
 
     expect(shapeList[index].currentlyEditing).toBe(false);
 
-    wrapper.trigger("mousedown", {
+    await wrapper.trigger("mousedown", {
         shiftKey: true
     });
 
