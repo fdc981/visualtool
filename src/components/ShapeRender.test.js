@@ -47,3 +47,33 @@ test("doing shift+mousedown on this component turns currentlyEditing to be true"
 
     expect(shapeList[index].currentlyEditing).toBe(true);
 });
+
+test("it is ctrl+draggable, placing it on the relative position where the user releases", async () => {
+    var index = 0;
+
+    const wrapper = mount(ShapeRender, {
+        propsData: {
+            shapeIndex: index
+        }
+    });
+
+    await wrapper.trigger("mousedown", {
+        ctrlKey: true
+    });
+
+    // select a random position to move the mouse to:
+    let randomX = Math.floor(Math.random() * window.innerWidth);
+    let randomY = Math.floor(Math.random() * window.innerHeight);
+
+    await document.dispatchEvent(new MouseEvent("mousemove", {
+        clientX: randomX,
+        clientY: randomY
+    }));
+
+    await document.dispatchEvent(new MouseEvent("mouseup"));
+
+    expect(wrapper.vm.$el.style.left).toBe(randomX / window.innerWidth * 100 + "%");
+    expect(wrapper.vm.$el.style.top).toBe(randomY / window.innerHeight * 100 + "%");
+
+    expect(wrapper.vm.$el.style.cssText).toBe(shapeList[index].style);
+});
