@@ -15,26 +15,6 @@ test('is invisible upon default', () => {
     expect(wrapper.find("ul").isVisible()).toBe(false)
 });
 
-test('is invisible when the isVisible prop is false', () => {
-    const wrapper = mount(ContextMenu, {
-        propsData: {
-            isVisible: false
-        }
-    })
-
-    expect(wrapper.find("ul").isVisible()).toBe(false)
-});
-
-test('is visible when the isVisible prop is true', () => {
-    const wrapper = mount(ContextMenu, {
-        propsData: {
-            isVisible: true
-        }
-    })
-
-    expect(wrapper.find("ul").isVisible()).toBe(true)
-});
-
 test('calling action emits event and closes', () => {
     const wrapper = mount(ContextMenu, {
         propsData: {
@@ -45,6 +25,29 @@ test('calling action emits event and closes', () => {
 
     wrapper.vm.action('asdf')
 
-    expect(wrapper.emitted().asdf).toBe("truthy")
+    expect(wrapper.emitted().asdf).not.toBe(undefined);
     expect(wrapper.find("ul").isVisible()).toBe(false)
+});
+
+test("right-clicking on the document toggles component visibility", async () => {
+    const wrapper = mount(ContextMenu, {
+        propsData: {
+            isVisible: false,
+            context: {}
+        }
+    });
+
+    expect(wrapper.find("ul").isVisible()).toBe(false);
+
+    await document.dispatchEvent(new MouseEvent('contextmenu', {
+        button: 2
+    }));
+
+    expect(wrapper.find("ul").isVisible()).toBe(true);
+
+    await document.dispatchEvent(new MouseEvent('contextmenu', {
+        button: 2
+    }));
+
+    expect(wrapper.find("ul").isVisible()).toBe(false);
 });
