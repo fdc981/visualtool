@@ -196,5 +196,77 @@ test("when currentlyEditing, stops editing upon clicking on the 'finish editing'
     expect(newStyle).toBe(getEditTextContent(wrapper));
 });
 
-test("can increment/decrement selected numerical parameters by selecting text, holding shift, then moving the mouse around", () => {
+test("can modify an arbitrary number by selecting text, holding shift, then moving the mouse around", async () => {
+    const wrapper = mount(EditArea, {
+        provide: {
+            shapeList: [
+                {
+                    id : 0,
+                    name : "Unnamed " + 0,
+                    style : "position: absolute; width: 50px; height: 50px; background-color: rgba(0,0,0,0.5);",
+                    currentlyEditing : true
+                }
+            ]
+        },
+
+        propsData: {
+            shapeIndex: 0
+        }
+    });
+
+    // find text node containing a '50' in it
+    let editRegionNode = wrapper.find('.edit-region').element;
+
+    let editRegionTextNode = undefined;
+    for (let node of editRegionNode.childNodes) {
+        if (node.nodeType === Node.TEXT_NODE && node.textContent.indexOf('50') !== -1) {
+            editRegionTextNode = node;
+            break;
+        }
+    }
+
+    expect(editRegionTextNode).not.toBe(undefined);
+
+    let originalStyle = getShapeListStyle(wrapper);
+
+    // select range with number
+    let selected = document.getSelection();
+    selected.removeAllRanges();
+
+    let start = editRegionTextNode.textContent.indexOf('50');
+    let end = editRegionTextNode.textContent.indexOf('px', start);
+
+    // NOTE: range must be added to selection before being modified
+    selected.addRange(document.createRange());
+    selected.getRangeAt(0).setStart(editRegionTextNode, start);
+    selected.getRangeAt(0).setEnd(editRegionTextNode, end);
+
+    // press and hold shift
+    await wrapper.trigger('keydown', { shiftKey: true });
+
+    // move mouse
+    let originX = Math.floor(Math.random() * window.innerWidth);
+    let originY = Math.floor(Math.random() * window.innerHeight);
+
+    // set origin with initial mouse move
+    await document.dispatchEvent(new MouseEvent("mousemove", {
+        clientX: originX,
+        clientY: originY
+    }));
+
+    let newX = Math.floor(Math.random() * window.innerWidth);
+    let newY = Math.floor(Math.random() * window.innerHeight);
+
+    await document.dispatchEvent(new MouseEvent("mousemove", {
+        clientX: newX,
+        clientY: newY
+    }));
+
+    await document.dispatchEvent(new MouseEvent("mouseup"));
+
+    await document.dispatchEvent(new KeyboardEvent("keyup", { shiftKey: true }));
+
+    let expectedContents = originalStyle.replace('50px', 50 + (newX - originX) + (newY - originY) + 'px');
+
+    expect(getShapeListStyle(wrapper)).toBe(expectedContents);
 });
