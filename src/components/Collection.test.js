@@ -59,3 +59,39 @@ test("when visible, it is ctrl+draggable", async () => {
     expect(wrapper.element.style.left).toBe(randomX / window.innerWidth * 100 + "%");
     expect(wrapper.element.style.top).toBe(randomY / window.innerHeight * 100 + "%");
 });
+
+test("a visible ShapeRender can be dragged and dropped into a visible Collection, adding it", async () => {
+    const CollectionWrapper = mount(Collection, {
+        propsData: {
+            collectionVisible: true
+        }
+    });
+
+    const ShapeRenderWrapper = mount(ShapeRender, {
+        propsData: {
+            shapeIndex: 0
+        }
+    });
+
+    let oldStyle = ShapeRenderWrapper.element.style.cssText;
+
+    await ShapeRenderWrapper.trigger("dragstart", {
+        ctrlKey: true
+    });
+
+    let style = CollectionWrapper.element.style;
+    let midX = style.left + style.width / 2;
+    let midY = style.top + style.height / 2;
+
+    await document.dispatchEvent(new MouseEvent("drag", {
+        clientX: midX,
+        clientY: midY
+    }));
+
+    await CollectionWrapper.trigger("drop");
+
+    let currentStyle = ShapeRenderWrapper.element.style.cssText;
+
+    expect(oldStyle).toBe(currentStyle);
+    expect(CollectionWrapper.find("div[index='0'][class='shape']").style.cssText).toBe(currentStyle);
+});
