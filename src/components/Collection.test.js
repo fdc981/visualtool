@@ -8,6 +8,8 @@ config.provide['shapeHeld'] = {
     val : null
 };
 
+config.provide['shapeList'] = [];
+
 test("is invisible by default", () => {
     const wrapper = mount(Collection);
 
@@ -70,6 +72,17 @@ test("a visible ShapeRender can be dragged and dropped into a visible Collection
     const ShapeRenderWrapper = mount(ShapeRender, {
         propsData: {
             shapeIndex: 0
+        },
+
+        provide: {
+            shapeList: [
+                {
+                    id : 0,
+                    name : "Unnamed " + 0,
+                    style : "position: absolute; width: 50px; height: 50px; background-color: rgba(0,0,0,0.5);",
+                    currentlyEditing : true
+                }
+            ]
         }
     });
 
