@@ -9,8 +9,8 @@ test("mounts with no error", () => {
     const wrapper = mount(App);
 });
 
-test("contains necessary components", () => {
-    const wrapper = mount(App);
+test("contains necessary components", async () => {
+    const wrapper = await mount(App);
 
     expect(wrapper.find("div#toolbar").exists()).toBe(true);
     expect(wrapper.findComponent(ContextMenu).exists()).toBe(true);
