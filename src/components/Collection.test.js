@@ -108,3 +108,31 @@ test("a visible ShapeRender can be dragged and dropped into a visible Collection
     expect(oldStyle).toBe(currentStyle);
     expect(CollectionWrapper.find("div[index='0'][class='shape']").style.cssText).toBe(currentStyle);
 });
+
+test("dragging a shape out of it adds it to the shapeList", async () => {
+    const CollectionWrapper = mount(Collection, {
+        propsData: {
+            collectionVisible: true
+        },
+
+        data() {
+            return {
+                collection: [
+                    {
+                        type: "shape",
+                        name : "Unnamed " + 0,
+                        style : "position: absolute; width: 50px; height: 50px; background-color: rgba(0,0,0,0.5);",
+                    }
+                ]
+            }
+        }
+    });
+
+    await CollectionWrapper.find("div[index=0]").trigger("dragstart");
+
+    await document.dispatchEvent("drag");
+
+    await document.dispatchEvent("drop");
+
+    // expect a ShapeRender to be present in the shapeList
+});
