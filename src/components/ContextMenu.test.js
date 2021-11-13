@@ -16,12 +16,7 @@ test('is invisible upon default', () => {
 });
 
 test('calling action emits event and closes', () => {
-    const wrapper = mount(ContextMenu, {
-        propsData: {
-            isVisible: true,
-            context: {}
-        }
-    })
+    const wrapper = mount(ContextMenu)
 
     wrapper.vm.action('asdf')
 
@@ -30,12 +25,7 @@ test('calling action emits event and closes', () => {
 });
 
 test("right-clicking on the document toggles component visibility", async () => {
-    const wrapper = mount(ContextMenu, {
-        propsData: {
-            isVisible: false,
-            context: {}
-        }
-    });
+    const wrapper = mount(ContextMenu);
 
     expect(wrapper.find("ul").isVisible()).toBe(false);
 
