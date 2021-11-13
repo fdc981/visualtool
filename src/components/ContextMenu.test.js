@@ -9,7 +9,7 @@ config.provide['shapeList'] = {
     val: {}
 }
 
-test('is invisible upon default', () => {
+test('is invisible by default', () => {
     const wrapper = mount(ContextMenu)
 
     expect(wrapper.find("ul").isVisible()).toBe(false)
