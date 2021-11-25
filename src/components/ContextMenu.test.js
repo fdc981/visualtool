@@ -10,18 +10,18 @@ config.provide['shapeList'] = {
 }
 
 test('is invisible by default', () => {
-    const wrapper = mount(ContextMenu)
+    const wrapper = mount(ContextMenu);
 
-    expect(wrapper.find("ul").isVisible()).toBe(false)
+    expect(wrapper.find("ul").isVisible()).toBe(false);
 });
 
 test('calling action emits event and closes', () => {
-    const wrapper = mount(ContextMenu)
+    const wrapper = mount(ContextMenu);
 
-    wrapper.vm.action('asdf')
+    wrapper.vm.action('asdf');
 
     expect(wrapper.emitted().asdf).not.toBe(undefined);
-    expect(wrapper.find("ul").isVisible()).toBe(false)
+    expect(wrapper.find("ul").isVisible()).toBe(false);
 });
 
 test("right-clicking on the document toggles component visibility", async () => {

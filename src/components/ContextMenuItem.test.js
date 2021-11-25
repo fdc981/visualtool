@@ -6,9 +6,9 @@ import "regenerator-runtime/runtime";
 config.provide['contextMenuTarget'] = null;
 
 test('is invisible by default', () => {
-    const wrapper = mount(ContextMenuItem)
+    const wrapper = mount(ContextMenuItem);
 
-    expect(wrapper.find("li").isVisible()).toBe(false)
+    expect(wrapper.find("li").isVisible()).toBe(false);
 });
 
 test('is invisible when condition is false', () => {
@@ -16,9 +16,9 @@ test('is invisible when condition is false', () => {
         propsData: {
             condition: false
         }
-    })
+    });
 
-    expect(wrapper.find("li").isVisible()).toBe(false)
+    expect(wrapper.find("li").isVisible()).toBe(false);
 });
 
 test('is visible when condition is true', () => {
@@ -26,7 +26,7 @@ test('is visible when condition is true', () => {
         propsData: {
             condition: true
         }
-    })
+    });
 
-    expect(wrapper.find("li").isVisible()).toBe(true)
+    expect(wrapper.find("li").isVisible()).toBe(true);
 });
