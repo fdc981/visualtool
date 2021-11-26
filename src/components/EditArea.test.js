@@ -151,7 +151,7 @@ test("when currentlyEditing, stops editing upon clicking on the 'finish editing'
 test("can modify an arbitrary number by selecting text, holding shift, then moving the mouse around", async () => {
     const wrapper = mount(EditArea, {
         provide: {
-            shapeList: makeShapeList(1, [{currentlyEditing: true}])
+            shapeList: makeShapeList(1, [{currentlyEditing: true, style: 'width: 50px'}])
         },
 
         propsData: {
