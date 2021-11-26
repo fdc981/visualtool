@@ -36,7 +36,7 @@ test("mounts successfully", () => {
 test("is invisible if currentlyEditing == false", () => {
     const wrapper = mount(EditArea, {
         provide: {
-            shapeList: makeShapeList(1)
+            shapeList: makeShapeList(1, [{currentlyEditing: false}])
         },
 
         propsData: {
@@ -50,7 +50,7 @@ test("is invisible if currentlyEditing == false", () => {
 test("is visible if currentlyEditing == true", () => {
     const wrapper = mount(EditArea, {
         provide: {
-            shapeList: makeShapeList(1)
+            shapeList: makeShapeList(1, [{currentlyEditing: true}])
         },
 
         propsData: {
@@ -64,7 +64,7 @@ test("is visible if currentlyEditing == true", () => {
 test("when currentlyEditing, displays an equivalent of the CSS of the shape being edited (up to whitespace)", () => {
     const wrapper = mount(EditArea, {
         provide: {
-            shapeList: makeShapeList(1)
+            shapeList: makeShapeList(1, [{currentlyEditing: true}])
         },
 
         propsData: {
@@ -78,7 +78,7 @@ test("when currentlyEditing, displays an equivalent of the CSS of the shape bein
 test("when currentlyEditing, updates style upon ctrl+enter", async () => {
     const wrapper = mount(EditArea, {
         provide: {
-            shapeList: makeShapeList(1)
+            shapeList: makeShapeList(1, [{currentlyEditing: true}])
         },
 
         propsData: {
@@ -104,7 +104,7 @@ test("when currentlyEditing, updates style upon ctrl+enter", async () => {
 test("when currentlyEditing, updates style upon clicking on the 'update' button", async () => {
     const wrapper = mount(EditArea, {
         provide: {
-            shapeList: makeShapeList(1)
+            shapeList: makeShapeList(1, [{currentlyEditing: true}])
         },
 
         propsData: {
@@ -128,7 +128,7 @@ test("when currentlyEditing, updates style upon clicking on the 'update' button"
 test("when currentlyEditing, stops editing upon clicking on the 'finish editing' button, also updating the style afterward", async () => {
     const wrapper = mount(EditArea, {
         provide: {
-            shapeList: makeShapeList(1)
+            shapeList: makeShapeList(1, [{currentlyEditing: true}])
         },
 
         propsData: {
@@ -151,7 +151,7 @@ test("when currentlyEditing, stops editing upon clicking on the 'finish editing'
 test("can modify an arbitrary number by selecting text, holding shift, then moving the mouse around", async () => {
     const wrapper = mount(EditArea, {
         provide: {
-            shapeList: makeShapeList(1)
+            shapeList: makeShapeList(1, [{currentlyEditing: true}])
         },
 
         propsData: {

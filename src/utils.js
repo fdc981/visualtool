@@ -44,11 +44,19 @@ function makeRandomShape(id) {
     }
 }
 
-export function makeShapeList(length) {
+export function makeShapeList(length, presets) {
     let shapeList = [];
 
     for (let i = 0; i < length; i++) {
         shapeList.push(makeRandomShape(i));
+    }
+
+    if (presets !== undefined) {
+        for (let i = 0; i < presets.length; i++) {
+            for (let key of Object.keys(presets[i])) {
+                shapeList[i][key] = presets[i][key];
+            }
+        }
     }
 
     return shapeList;
