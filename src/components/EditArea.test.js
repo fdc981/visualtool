@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import EditArea from './EditArea.vue'
 import { config } from '@vue/test-utils'
 import "regenerator-runtime/runtime";
+import { makeShapeList } from "../utils.js";
 
 // TODO: find a way to avoid hardcoding the index of the shapeList in the 'update' tests
 //       maybe use enumerations?
@@ -23,14 +24,7 @@ function getShapeListStyle(wrapper) {
 test("mounts successfully", () => {
     const wrapper = mount(EditArea, {
         provide: {
-            shapeList: [
-                {
-                    id : 0,
-                    name : "Unnamed " + 0,
-                    style : "position: absolute; width: 50px; height: 50px; background-color: rgba(0,0,0,0.5);",
-                    currentlyEditing : false
-                }
-            ]
+            shapeList: makeShapeList(1)
         },
 
         propsData: {
@@ -42,14 +36,7 @@ test("mounts successfully", () => {
 test("is invisible if currentlyEditing == false", () => {
     const wrapper = mount(EditArea, {
         provide: {
-            shapeList: [
-                {
-                    id : 0,
-                    name : "Unnamed " + 0,
-                    style : "position: absolute; width: 50px; height: 50px; background-color: rgba(0,0,0,0.5);",
-                    currentlyEditing : false
-                }
-            ]
+            shapeList: makeShapeList(1)
         },
 
         propsData: {
@@ -63,14 +50,7 @@ test("is invisible if currentlyEditing == false", () => {
 test("is visible if currentlyEditing == true", () => {
     const wrapper = mount(EditArea, {
         provide: {
-            shapeList: [
-                {
-                    id : 0,
-                    name : "Unnamed " + 0,
-                    style : "position: absolute; width: 50px; height: 50px; background-color: rgba(0,0,0,0.5);",
-                    currentlyEditing : true
-                }
-            ]
+            shapeList: makeShapeList(1)
         },
 
         propsData: {
@@ -84,14 +64,7 @@ test("is visible if currentlyEditing == true", () => {
 test("when currentlyEditing, displays an equivalent of the CSS of the shape being edited (up to whitespace)", () => {
     const wrapper = mount(EditArea, {
         provide: {
-            shapeList: [
-                {
-                    id : 0,
-                    name : "Unnamed " + 0,
-                    style : "position: absolute; width: 50px; height: 50px; background-color: rgba(0,0,0,0.5);",
-                    currentlyEditing : true
-                }
-            ]
+            shapeList: makeShapeList(1)
         },
 
         propsData: {
@@ -105,14 +78,7 @@ test("when currentlyEditing, displays an equivalent of the CSS of the shape bein
 test("when currentlyEditing, updates style upon ctrl+enter", async () => {
     const wrapper = mount(EditArea, {
         provide: {
-            shapeList: [
-                {
-                    id : 0,
-                    name : "Unnamed " + 0,
-                    style : "position: absolute; width: 50px; height: 50px; background-color: rgba(0,0,0,0.5);",
-                    currentlyEditing : true
-                }
-            ]
+            shapeList: makeShapeList(1)
         },
 
         propsData: {
@@ -138,14 +104,7 @@ test("when currentlyEditing, updates style upon ctrl+enter", async () => {
 test("when currentlyEditing, updates style upon clicking on the 'update' button", async () => {
     const wrapper = mount(EditArea, {
         provide: {
-            shapeList: [
-                {
-                    id : 0,
-                    name : "Unnamed " + 0,
-                    style : "position: absolute; width: 50px; height: 50px; background-color: rgba(0,0,0,0.5);",
-                    currentlyEditing : true
-                }
-            ]
+            shapeList: makeShapeList(1)
         },
 
         propsData: {
@@ -169,14 +128,7 @@ test("when currentlyEditing, updates style upon clicking on the 'update' button"
 test("when currentlyEditing, stops editing upon clicking on the 'finish editing' button, also updating the style afterward", async () => {
     const wrapper = mount(EditArea, {
         provide: {
-            shapeList: [
-                {
-                    id : 0,
-                    name : "Unnamed " + 0,
-                    style : "position: absolute; width: 50px; height: 50px; background-color: rgba(0,0,0,0.5);",
-                    currentlyEditing : true
-                }
-            ]
+            shapeList: makeShapeList(1)
         },
 
         propsData: {
@@ -199,14 +151,7 @@ test("when currentlyEditing, stops editing upon clicking on the 'finish editing'
 test("can modify an arbitrary number by selecting text, holding shift, then moving the mouse around", async () => {
     const wrapper = mount(EditArea, {
         provide: {
-            shapeList: [
-                {
-                    id : 0,
-                    name : "Unnamed " + 0,
-                    style : "position: absolute; width: 50px; height: 50px; background-color: rgba(0,0,0,0.5);",
-                    currentlyEditing : true
-                }
-            ]
+            shapeList: makeShapeList(1)
         },
 
         propsData: {

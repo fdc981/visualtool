@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils'
 import Collection from './Collection.vue'
 import ShapeRender from './ShapeRender.vue'
 import { config } from '@vue/test-utils'
+import { makeShapeList } from "../utils.js";
 import "regenerator-runtime/runtime";
 
 config.provide['shapeHeld'] = {
@@ -75,14 +76,7 @@ test("a visible ShapeRender can be dragged and dropped into a visible Collection
         },
 
         provide: {
-            shapeList: [
-                {
-                    id : 0,
-                    name : "Unnamed " + 0,
-                    style : "position: absolute; width: 50px; height: 50px; background-color: rgba(0,0,0,0.5);",
-                    currentlyEditing : true
-                }
-            ]
+            shapeList: makeShapeList(1)
         }
     });
 
