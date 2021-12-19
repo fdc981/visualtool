@@ -1,13 +1,15 @@
 <template>
     <div class="font-monospace"
          style="position: absolute; left:50%; top:50%"
+         v-show="this.shapeList[this.shapeIndex].currentlyEditing"
          @mousedown.ctrl.exact="dragAndDrop"
-         @keydown.shift="varySelection">
+         @keydown.shift="varySelection"
+         @keyup.enter.ctrl="updateStyle">
         <div class="edit-region bg-white p-3" contentEditable="true"
              v-html="this.shapeList[this.shapeIndex].style.replace(/;/g, ';<br>')"></div>
         <div class="px-3">
-            <a href="#" @click="updateStyle">update</a>&nbsp;
-            <a href="#" @click="stopEditing">finish editing</a>
+            <button name="update" @click="updateStyle">update</button>
+            <button name="finish-editing" @click="stopEditing">finish editing</button>
         </div>
     </div>
 </template>
@@ -67,7 +69,7 @@
                  selectedRange.deleteContents();
                  selectedRange.insertNode(newContents);
 
-                 vue.$el.parentNode.querySelector('.shape').style = vue.$el.querySelector(".edit-region").textContent;
+                 vue.shapeList[vue.shapeIndex].style = vue.$el.querySelector(".edit-region").textContent;
              };
 
              // initial event to set origin, continues to onmousemove
