@@ -4,9 +4,6 @@ import { config } from '@vue/test-utils'
 import "regenerator-runtime/runtime";
 import { makeShapeList } from "../utils.js";
 
-// TODO: find a way to avoid hardcoding the index of the shapeList in the 'update' tests
-//       maybe use enumerations?
-
 /**
  * Retrieves the CSS code being edited within the EditArea, with all whitespace removed.
  */
