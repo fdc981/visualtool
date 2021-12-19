@@ -1,6 +1,7 @@
 <template>
     <div id="collection"
          style="left: 0px; top: 0px; width: 100px; height: 100px"
+         v-show="collectionVisible"
          @mousedown.ctrl.exact="dragAndDrop">
         <span v-for="shape in collection"
               :key="shape.id"
@@ -18,6 +19,10 @@
          }
      },
 
+     props: {
+         collectionVisible: Boolean
+     },
+
      inject: ['shapeHeld'],
 
      mounted() {
@@ -26,7 +31,7 @@
          document.addEventListener('mouseup', (e) => {
              if (this.shapeHeld.val && this.withinRange(e.clientX, e.clientY)) {
                  this.collection.push({
-                     typve: "shape",
+                     type: "shape",
                      name: this.shapeHeld.val.name,
                      style: this.shapeHeld.val.style
                  });
@@ -42,8 +47,8 @@
 
              let onMouseMove = (e) => {
                  e.preventDefault();
-                 target.style.left = e.clientX + "px";
-                 target.style.top = e.clientY + "px";
+                 target.style.left = e.clientX / window.innerWidth * 100 + "%";
+                 target.style.top = e.clientY / window.innerHeight * 100 + "%";
              };
 
              document.addEventListener('mousemove', onMouseMove);
