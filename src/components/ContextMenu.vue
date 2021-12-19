@@ -1,6 +1,7 @@
 <template>
     <ul id="context-menu"
-        :class="{ 'position-absolute': true, 'dropdown-menu': true, 'show': contextMenuVisible }">
+        :class="{ 'position-absolute': true, 'dropdown-menu': true }"
+        v-show="contextMenuVisible">
         <ContextMenuItem :condition="contextMenuTarget.className === 'shape'" @click.native="action('editShape')">
             edit shape
         </ContextMenuItem>
