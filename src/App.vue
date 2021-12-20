@@ -21,8 +21,7 @@
         <div id="display" class="vh-100 vw-100">
             <div :key="shape.id" v-for="(shape, shapeIndex) in shapeList">
                 <ShapeRender :shapeIndex="shapeIndex"></ShapeRender>
-                <EditArea v-if="shape.currentlyEditing"
-                          :shapeIndex="shapeIndex"></EditArea>
+                <EditArea :shapeIndex="shapeIndex"></EditArea>
             </div>
         </div>
 
@@ -49,7 +48,7 @@
 
         </div>
 
-        <Collection v-if="collectionVisible"></Collection>
+        <Collection :collectionVisible="collectionVisible"></Collection>
 
     </div>
 </template>
@@ -103,10 +102,6 @@
      },
 
      methods : {
-         showShapeList() {
-             console.log(this.shapeList);
-         },
-
          addShape() {
              this.shapeList.push({
                  id : this.currID,
