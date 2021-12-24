@@ -102,44 +102,6 @@
      },
 
      methods : {
-         addShape() {
-             this.shapeList.push({
-                 id : this.currID,
-                 name : "Unnamed " + this.currID,
-                 style : "position: absolute; width: 50px; height: 50px; background-color: rgba(0,0,0,0.5);",
-                 currentlyEditing : false
-             });
-
-             this.currID += 1;
-         },
-
-         deleteShape(targetShapeNode) {
-             let ind = Number(targetShapeNode.attributes.index.value);
-             this.shapeList = this.shapeList.filter((element, index) => {
-                 return index !== ind;
-             });
-         },
-
-         copyShape(targetShapeNode) {
-             // Copies a shape, assigning it with currID
-             let ind = Number(targetShapeNode.attributes.index.value);
-             let newShape = JSON.parse(JSON.stringify(this.shapeList[ind]));
-             newShape.id = this.currID;
-
-             this.shapeList.push(newShape);
-
-             this.currID += 1;
-         },
-
-         editShape(targetShapeNode) {
-             let shape = this.shapeList[Number(targetShapeNode.attributes.index.value)];
-             shape.currentlyEditing = true;
-         },
-
-         saveShapeList() {
-             localStorage.setItem("shapeList", JSON.stringify(this.shapeList));
-         },
-
          updatePos(e) {
              this.following = false;
 
