@@ -1,7 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-export const store = new Vuex.Store({
+Vue.use(Vuex);
+
+export let store = new Vuex.Store({
     state: {
         shapeList: [],
         currID: 0,
