@@ -4,12 +4,15 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 let shapeList = [];
+let localShapeList = localStorage.getItem("shapeList");
 
-try {
-    shapeList = JSON.parse(localStorage.getItem("shapeList"));
-}
-catch (e) {
-    console.error(e);
+if (localShapeList !== null) {
+    try {
+        shapeList = JSON.parse(localShapeList);
+    }
+    catch (e) {
+        console.error(e);
+    }
 }
 
 const reducer = (acc, currVal) => {
