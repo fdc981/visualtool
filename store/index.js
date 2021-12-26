@@ -3,10 +3,29 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+let shapeList = [];
+
+try {
+    shapeList = JSON.parse(localStorage.getItem("shapeList"));
+}
+catch (e) {
+    console.error(e);
+}
+
+const reducer = (acc, currVal) => {
+    return Math.max(isNaN(currVal) ? 0 : currVal, acc);
+};
+
+let currID = 0;
+
+if (shapeList !== null) {
+    currID = shapeList.map(x => Number(x.id)).reduce(reducer, 0) + 1;
+}
+
 export let store = new Vuex.Store({
     state: {
-        shapeList: [],
-        currID: 0,
+        shapeList: shapeList,
+        currID: currID,
         held: null
     },
 
