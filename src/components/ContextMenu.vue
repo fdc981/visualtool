@@ -49,8 +49,6 @@
          collectionVisible: Boolean
      },
 
-     inject: ['shapeList'],
-
      provide() {
          return {
              contextMenuTarget: this.contextMenuTarget,
@@ -64,7 +62,7 @@
 
          action(actionName) {
              // Invoke an action
-             this.$emit(actionName, this.contextMenuTarget);
+             this.$store.commit(actionName, this.contextMenuTarget);
              this.closeContextMenu();
          },
      },

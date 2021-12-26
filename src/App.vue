@@ -2,7 +2,7 @@
     <div id="app">
         <div id="toolbar" class="row row-col-auto position-absolute bottom-0 px-4 py-3 gx-3">
             <div class="col">
-                <button class="btn btn-toolbar" @click="addShape">add shape</button>
+                <button class="btn btn-toolbar" @click="$store.commit('addShape')">add shape</button>
             </div>
             <div class="col">
                 <button class="btn btn-toolbar">add anim</button>
@@ -14,22 +14,22 @@
                 <button class="btn btn-toolbar" @click="exportVisual">export</button>
             </div>
             <div class="col">
-                <button class="btn btn-toolbar" @click="saveShapeList">save workspace</button>
+                <button class="btn btn-toolbar" @click="$store.commit('saveShapeList')">save workspace</button>
             </div>
         </div>
 
         <div id="display" class="vh-100 vw-100">
-            <div :key="shape.id" v-for="(shape, shapeIndex) in shapeList">
+            <div :key="shape.id" v-for="(shape, shapeIndex) in $store.state.shapeList">
                 <ShapeRender :shapeIndex="shapeIndex"></ShapeRender>
                 <EditArea :shapeIndex="shapeIndex"></EditArea>
             </div>
         </div>
 
-        <ContextMenu @editShape="editShape"
-                     @deleteShape="deleteShape"
-                     @copyShape="copyShape"
-                     @addShape="addShape"
-                     @saveShapeList="saveShapeList"
+        <ContextMenu @editShape="$store.commit('editShape')"
+                     @deleteShape="$store.commit('deleteShape')"
+                     @copyShape="$store.commit('copyShape')"
+                     @addShape="$store.commit('addShape')"
+                     @saveShapeList="$store.commit('saveShapeList')"
                      @openCollection="openCollection"
                      @closeCollection="closeCollection"
                      :collectionVisible="collectionVisible">
@@ -38,7 +38,7 @@
         <div id="shape-list" v-if="shapeListVisible">
             Shapes:
             <ul>
-                <li v-for="shape in shapeList" class="shape-entry" :key="shape.id">
+                <li v-for="shape in $store.state.shapeList" class="shape-entry" :key="shape.id">
                     <span class="text-muted px-2">{{ shape.id }}</span>
                     <a @click="editShape(shape)">
                         {{ shape.name }}
@@ -58,6 +58,7 @@
  import EditArea from "./components/EditArea"
  import ShapeRender from "./components/ShapeRender"
  import Collection from "./components/Collection"
+ import { store } from "../store/index.js"
 
  export default {
      data() {
@@ -68,13 +69,6 @@
              following : false,
              collectionVisible : false,
              shapeHeld : null,
-         }
-     },
-
-     provide() {
-         return {
-             shapeList: this.shapeList,
-             shapeHeld: { val: this.shapeHeld },
          }
      },
 
@@ -148,7 +142,9 @@
          EditArea,
          ShapeRender,
          Collection
-     }
+     },
+
+     store: store
  }
 </script>
 

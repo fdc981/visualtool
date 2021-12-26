@@ -23,21 +23,19 @@
          collectionVisible: Boolean
      },
 
-     inject: ['shapeHeld'],
-
      mounted() {
          // if user was dragging a shape on mouse up, add shape to collection
 
          document.addEventListener('mouseup', (e) => {
-             if (this.shapeHeld.val && this.withinRange(e.clientX, e.clientY)) {
+             if (this.$store.state.held && this.withinRange(e.clientX, e.clientY)) {
                  this.collection.push({
                      type: "shape",
-                     name: this.shapeHeld.val.name,
-                     style: this.shapeHeld.val.style
+                     name: this.$store.state.held.name,
+                     style: this.$store.state.held.style
                  });
              }
 
-             this.shapeHeld.val = null;
+             this.$store.state.held = null;
          });
      },
 

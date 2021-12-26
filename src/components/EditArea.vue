@@ -1,12 +1,12 @@
 <template>
     <div class="font-monospace"
          style="position: absolute; left:50%; top:50%"
-         v-show="this.shapeList[this.shapeIndex].currentlyEditing"
+         v-show="this.$store.state.shapeList[this.shapeIndex].currentlyEditing"
          @mousedown.ctrl.exact="dragAndDrop"
          @keydown.shift="varySelection"
          @keyup.enter.ctrl="updateStyle">
         <div class="edit-region bg-white p-3" contentEditable="true"
-             v-html="this.shapeList[this.shapeIndex].style.replace(/;/g, ';<br>')"></div>
+             v-html="this.$store.state.shapeList[this.shapeIndex].style.replace(/;/g, ';<br>')"></div>
         <div class="px-3">
             <button name="update" @click="updateStyle">update</button>
             <button name="finish-editing" @click="stopEditing">finish editing</button>
@@ -20,11 +20,9 @@
          shapeIndex: Number
      },
 
-     inject: ['shapeList'],
-
      methods: {
          updateStyle() {
-             this.shapeList[this.shapeIndex].style = this.$el.querySelector(".edit-region").textContent;
+             this.$store.state.shapeList[this.shapeIndex].style = this.$el.querySelector(".edit-region").textContent;
          },
 
          dragAndDrop() {
@@ -45,7 +43,7 @@
 
          stopEditing() {
              this.updateStyle();
-             this.shapeList[this.shapeIndex].currentlyEditing = false;
+             this.$store.state.shapeList[this.shapeIndex].currentlyEditing = false;
          },
 
          varySelection(e) {
@@ -69,7 +67,7 @@
                  selectedRange.deleteContents();
                  selectedRange.insertNode(newContents);
 
-                 vue.shapeList[vue.shapeIndex].style = vue.$el.querySelector(".edit-region").textContent;
+                 vue.$store.state.shapeList[vue.shapeIndex].style = vue.$el.querySelector(".edit-region").textContent;
              };
 
              // initial event to set origin, continues to onmousemove

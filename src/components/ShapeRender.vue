@@ -1,5 +1,5 @@
 <template>
-    <div :style="this.shapeList[shapeIndex].style"
+    <div :style="this.$store.state.shapeList[shapeIndex].style"
          class="shape"
          :index="shapeIndex"
          @mousedown.ctrl.exact = "dragAndDrop"
@@ -12,12 +12,10 @@
          shapeIndex: Number
      },
 
-     inject: ['shapeList', 'shapeHeld'],
-
      methods: {
          dragAndDrop() {
              let target = this.$el;
-             this.shapeHeld.val = this.shapeList[this.shapeIndex];
+             this.$store.state.held = this.$store.state.shapeList[this.shapeIndex];
 
              let onMouseMove = (e) => {
                  e.preventDefault();
@@ -32,12 +30,12 @@
 
                  let index = target.attributes.index.value;
 
-                 this.shapeList[index].style = target.style.cssText;
+                 this.$store.state.shapeList[index].style = target.style.cssText;
              }, { once: true });
          },
 
          editShape() {
-             this.shapeList[this.shapeIndex].currentlyEditing = true;
+             this.$store.state.shapeList[this.shapeIndex].currentlyEditing = true;
          }
      }
  }
