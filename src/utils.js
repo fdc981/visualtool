@@ -2,6 +2,36 @@
  * Test helper.
  */
 
+import { JSDOM } from 'jsdom';
+
+expect.extend({
+    toBeAValidStyle(received, styleString) {
+        let dom = new JSDOM('<div></div>');
+        let div = dom.window.document.querySelector('div');
+        div.cssText = received;
+
+        if (div.cssText == received) {
+            return {
+                message: "expected valid inline CSS",
+                pass: true
+            }
+        }
+        else {
+            return {
+                message: "expected invalid inline CSS",
+                pass: false
+            }
+        }
+    }
+});
+
+export const shapeSpec = {
+    id: expect.any(Number),
+    name: expect.stringMatching(".+"),
+    style: expect.toBeAValidStyle(),
+    currentlyEditing: expect.any(Boolean)
+};
+
 const testableCSSProperties = {
     'position': ['static', 'relative', 'absolute', 'fixed', 'sticky'],
     'left': ['-1%', '0px', '10px', '50%', '100%', '101%'],
