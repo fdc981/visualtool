@@ -31,7 +31,7 @@ function makeRandomStyle() {
     return style
 }
 
-function makeRandomShape(id) {
+export function makeRandomShape(id) {
     let name = "Random shape " + id;
     let style = makeRandomStyle();
     let randomBool = Math.random() < 0.5 ? true : false;
