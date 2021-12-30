@@ -4,13 +4,8 @@ import "regenerator-runtime/runtime";
 import { mutations } from './index.js'
 import Vuex from 'vuex';
 
-// TODO: test mutations of the vuex store
-// TODO: get a code formatter...
-//
-// NOTE: include only the mutated states in the state
-// NOTE: treat any of the 2-argument mutations as taking the shape index as the second argument
 
-test("addShape adds a shape to the shapeList", () => {
+test("addNewShape adds a shape to the shapeList", () => {
     const numShapes = 5;
 
     let state = {
@@ -18,7 +13,7 @@ test("addShape adds a shape to the shapeList", () => {
         currID: numShapes
     };
 
-    mutations.addShape(state);
+    mutations.addNewShape(state);
 
     expect(Object.keys(state)).toHaveLength(2);
     expect(state.shapeList).toHaveLength(numShapes + 1);

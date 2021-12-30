@@ -26,7 +26,7 @@ if (shapeList !== null) {
 }
 
 export const mutations = {
-    addShape(state) {
+    addNewShape(state) {
         state.shapeList.push({
             id: state.currID,
             name: "Unnamed " + state.currID,

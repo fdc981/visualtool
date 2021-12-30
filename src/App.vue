@@ -2,7 +2,7 @@
     <div id="app">
         <div id="toolbar" class="row row-col-auto position-absolute bottom-0 px-4 py-3 gx-3">
             <div class="col">
-                <button class="btn btn-toolbar" @click="$store.commit('addShape')">add shape</button>
+                <button class="btn btn-toolbar" @click="$store.commit('addNewShape')">add shape</button>
             </div>
             <div class="col">
                 <button class="btn btn-toolbar">add anim</button>
@@ -28,7 +28,7 @@
         <ContextMenu @editShape="$store.commit('editShape')"
                      @deleteShape="$store.commit('deleteShape')"
                      @copyShape="$store.commit('copyShape')"
-                     @addShape="$store.commit('addShape')"
+                     @addNewShape="$store.commit('addNewShape')"
                      @saveShapeList="$store.commit('saveShapeList')"
                      @openCollection="openCollection"
                      @closeCollection="closeCollection"

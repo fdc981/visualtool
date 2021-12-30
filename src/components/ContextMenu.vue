@@ -11,7 +11,7 @@
         <ContextMenuItem :condition="contextMenuTarget.className === 'shape'" @click.native="action('copyShape')">
             copy shape
         </ContextMenuItem>
-        <ContextMenuItem :condition="contextMenuTarget.id === 'display'" @click.native="action('addShape')">
+        <ContextMenuItem :condition="contextMenuTarget.id === 'display'" @click.native="action('addNewShape')">
             add shape
         </ContextMenuItem>
         <ContextMenuItem :condition="contextMenuTarget.id === 'display'" @click.native="action('saveShapeList')">
