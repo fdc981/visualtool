@@ -77,3 +77,16 @@ test("editShape toggles currentlyEditing of a shape", () => {
     expect(Object.keys(state)).toHaveLength(1);
     expect(state.shapeList[0].currentlyEditing).toBe(true);
 });
+
+test("saveShapeList saves the entire shapeList under localStorage", () => {
+    const numShapes = 5;
+
+    let state = {
+        shapeList: makeShapeList(numShapes)
+    };
+
+    mutations.saveShapeList(state);
+
+    expect(Object.keys(state)).toHaveLength(1);
+    expect(localStorage.getItem('shapeList')).toBe(JSON.stringify(state.shapeList));
+});
